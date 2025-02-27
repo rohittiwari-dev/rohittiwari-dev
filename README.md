@@ -101,7 +101,7 @@ _Digital Craftsman (Software Developer / Web App Developer)_
       <h3 align="center"><strong>Sᴛʀᴇᴀᴋ Sᴛᴀᴛs</strong></h3>
       <p align="center">
         <a href="https://github.com/rohittiwari-dev">
-          <img align="center" src="https://streak-stats.demolab.com?user=rohittiwari-dev&theme=radical" alt="Streak Stats" />
+          <img align="center" src="https://streak-stats.demolab.com?user=rohittiwari-dev&theme=radical" alt="GitHub Streak" />
         </a>
       </p>
     </td>
