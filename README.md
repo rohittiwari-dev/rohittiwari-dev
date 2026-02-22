@@ -87,7 +87,7 @@ _Digital Craftsman (Software Developer / Web App Developer)_
 <!--Github stats Table-->
 <h2 align="center">📊 Gɪᴛʜᴜʙ Sᴛᴀᴛs 📊</h2>
 
-<table width="100%">
+<table width="100%" align="center">
   <tr>
     <!-- <td width="50%">
       <h3 align="center"><strong>Gɪᴛʜᴜʙ Sᴛᴀᴛs</strong></h3>
