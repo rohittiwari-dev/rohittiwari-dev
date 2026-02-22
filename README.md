@@ -17,14 +17,14 @@ _Digital Craftsman (Software Developer / Web App Developer)_
 <!--Start Intro-->
 <p align="left">I am a Full Stack Developer and SAAS Developement Enthusiast with a huge love for Next js, React.js, Node.js, Spring Boot, RDBMS, REST API, tRPC and have good experience in OCPP. </p>
 
--   🔭 I’m currently working on **NirvanaMeet Video Conferencing Solution**
--   🌱 I’m currently learning **React-JS,Angular, Spring Boot(Java), Node-JS, Mongo Db**
--   🤝 I’m looking for help with **Deploying Full-Stack Project on Github**
--   👨‍💻 All of my projects are available at [https://rohittiwari-dev.github.io/rohit-dev/](https://rohittiwari-dev.github.io/rohit-dev/)
--   💻 Conatct ME or Visit My Portfolio [https://prorohit.netlify.app/)
--   💬 Ask me about **React, Angular, Spring Boot - Apis, Node JS-Express**
--   📫 How to reach me **tigertiwari1023@gmail.com**
--   ⚡ Fun fact **I Think I am GOD in Full Stack 😂🤣 Development (Just Joking 🤣)**
+- 🔭 I’m currently working on **NirvanaMeet Video Conferencing Solution**
+- 🌱 I’m currently learning **React-JS,Angular, Spring Boot(Java), Node-JS, Mongo Db**
+- 🤝 I’m looking for help with **Deploying Full-Stack Project on Github**
+- 👨‍💻 All of my projects are available at [https://rohittiwari-dev.github.io/rohit-dev/](https://rohittiwari-dev.github.io/rohit-dev/)
+- 💻 Conatct ME or Visit My Portfolio [https://prorohit.netlify.app/)
+- 💬 Ask me about **React, Angular, Spring Boot - Apis, Node JS-Express**
+- 📫 How to reach me **tigertiwari1023@gmail.com**
+- ⚡ Fun fact **I Think I am GOD in Full Stack 😂🤣 Development (Just Joking 🤣)**
 <!--End Intro-->
 
 <!--Profile Count Badge-->
@@ -68,16 +68,16 @@ _Digital Craftsman (Software Developer / Web App Developer)_
 <p align="center">
   <a href="https://github.com/rohittiwari-dev">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://github-profile-trophy.vercel.app/?username=rohittiwari-dev&no-bg=true&row=2&column=6&margin-w=20&margin-h=20&theme=monokai">
-      <source media="(prefers-color-scheme: light)" srcset="https://github-profile-trophy.vercel.app/?username=rohittiwari-dev&no-bg=true&row=2&column=6&margin-w=20&margin-h=20">
-      <img alt="GitHub Trophies" src="https://github-profile-trophy.vercel.app/?username=rohittiwari-dev&no-bg=true&no-frame=true&row=2&column=6&margin-w=20&margin-h=20">
+      <source media="(prefers-color-scheme: dark)" srcset="https://github-trophies.vercel.app/?username=rohittiwari-dev&no-bg=true&row=2&column=6&margin-w=20&margin-h=20&theme=monokai">
+      <source media="(prefers-color-scheme: light)" srcset="https://github-trophies.vercel.app/?username=rohittiwari-dev&no-bg=true&row=2&column=6&margin-w=20&margin-h=20">
+      <img alt="GitHub Trophies" src="https://github-trophies.vercel.app/?username=rohittiwari-dev&no-bg=true&no-frame=true&row=2&column=6&margin-w=20&margin-h=20">
     </picture>
   </a>
 </p>
 <p align="center">
   <a href="https://github.com/daytonaio/daytona">
     <img
-      src="https://api.vaunt.dev/v1/github/entities/rohittiwari-dev/achievements?format=svg&limit=6"
+      src="https://readme-typing-svg.demolab.com?font=Fira+Code&pause=1000&width=435&lines=Smart+Knowlegde+Seeker+Rohit+Tiwari"
       width="400"
     />
   </a>
@@ -89,14 +89,14 @@ _Digital Craftsman (Software Developer / Web App Developer)_
 
 <table width="100%">
   <tr>
-    <td width="50%">
+    <!-- <td width="50%">
       <h3 align="center"><strong>Gɪᴛʜᴜʙ Sᴛᴀᴛs</strong></h3>
       <p align="center">
         <a href="https://github.com/rohittiwari-dev">
           <img align="center" src="https://github-readme-stats.vercel.app/api?username=rohittiwari-dev&count_private=true&show_icons=true&theme=radical&rank_icon=github&hide=prs,issues,contribs&show=reviews,prs_merged,prs_merged_percentage" alt="GitHub Stats" />
         </a>
       </p>
-    </td>
+    </td> -->
     <td width="50%">
       <h3 align="center"><strong>Sᴛʀᴇᴀᴋ Sᴛᴀᴛs</strong></h3>
       <p align="center">
@@ -107,19 +107,19 @@ _Digital Craftsman (Software Developer / Web App Developer)_
     </td>
   </tr>
   <tr>
-    <td width="50%">
+    <!-- <td width="50%">
       <h3 align="center"><strong>Lᴀᴛᴇsᴛ Pʀᴏᴊᴇᴄᴛ</strong></h3>
       <p align="center">
         <a href="https://github.com/rohittiwari-dev/notespace">
           <img align="center" width="470" src="https://github-readme-stats.vercel.app/api/pin/?username=rohittiwari-dev&repo=notespace&theme=radical&show_owner=true" alt="notespace" />
         </a>
       </p>
-    </td>
+    </td> -->
     <td width="50%">
       <h3 align="center"><strong>Tᴏᴘ Cᴏɴᴛʀɪʙᴜᴛɪᴏɴs</strong></h3>
       <p align="center">
         <a href="https://github.com/rohittiwari-dev">
-          <img align="center" src="https://github-contributor-stats.vercel.app/api?username=rohittiwari-dev&limit=2&theme=radical&show_owner=true&combine_all_yearly_contributions=false" alt="Top Repo" />
+          <img align="center" src="https://github-contributor-stats.vercel.app/api?username=rohittiwari-dev&limit=6&theme=radical&show_owner=true&combine_all_yearly_contributions=false" alt="Top Repo" />
         </a>
       </p>
     </td>
@@ -149,10 +149,10 @@ _Digital Craftsman (Software Developer / Web App Developer)_
 </p>
 </div>
 
-<!-- Buy me a coffee
+<!-- Buy me a coffee -->
 <div align="center">
 <a href="https://www.buymeacoffee.com/rohittiwari" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-violet.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
-</div> -->
+</div>
 
 <!--Footer-->
 <p align="center">
