@@ -48,10 +48,14 @@ export function Header() {
         <div className="flex w-full items-center border-b border-white/10 sm:w-auto sm:border-b-0">
           <Link
             href="/"
-            className="flex h-12 w-14 shrink-0 items-center justify-center border-r border-white/10 bg-white/[0.03] transition-colors hover:bg-white/[0.07]"
+            className="flex h-12 w-14 shrink-0 items-center justify-center transition-colors"
           >
-            <div className="flex h-6 w-6 items-center justify-center bg-gradient-to-br from-cyan-400 via-fuchsia-400 to-emerald-400 text-xs font-extrabold text-black shadow-[0_0_15px_rgba(34,211,238,0.45)]">
-              {PERSONAL_DATA.initials}
+            <div className="relative flex h-6 w-6 items-center justify-center overflow-hidden ">
+              <img
+                src="/icon.png"
+                alt={PERSONAL_DATA.initials}
+                className="h-full w-full object-cover"
+              />
             </div>
           </Link>
 

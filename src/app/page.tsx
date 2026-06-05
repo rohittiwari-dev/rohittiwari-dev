@@ -32,7 +32,7 @@ import {
 } from "@/components/ui/card";
 import { CornerPluses } from "@/components/ui/corner-plus";
 import { IconCloud } from "@/components/ui/icon-cloud";
-import { focusAreas, PERSONAL_DATA, PROJECTS } from "@/db/cv";
+import { focusAreas, HOMEPAGE_DATA, PERSONAL_DATA, PROJECTS } from "@/db/cv";
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -68,44 +68,7 @@ const lucideIcons: Record<string, React.ElementType> = {
   Sparkles,
 };
 
-const heroPills = [
-  "TypeScript",
-  "React",
-  "Next.js",
-  "Node.js",
-  "NestJS",
-  "PostgreSQL",
-  "Redis",
-  "Docker",
-  "AWS",
-];
-
-const heroStackIcons = [
-  "https://cdn.simpleicons.org/react/22d3ee",
-  "https://cdn.simpleicons.org/nextdotjs/ffffff",
-  "https://cdn.simpleicons.org/nodedotjs/22c55e",
-  "https://cdn.simpleicons.org/nestjs/e0234e",
-  "https://cdn.simpleicons.org/express/ffffff",
-  "https://cdn.simpleicons.org/postgresql/4169e1",
-  "https://cdn.simpleicons.org/mysql/4479a1",
-  "https://cdn.simpleicons.org/mongodb/47a248",
-  "https://cdn.simpleicons.org/redis/dc382d",
-  "https://cdn.simpleicons.org/docker/2496ed",
-  "https://cdn.simpleicons.org/amazonwebservices/ffffff",
-  "https://cdn.simpleicons.org/nginx/009639",
-  "https://cdn.simpleicons.org/caddy/00add8",
-  "https://cdn.simpleicons.org/traefik/24a1c1",
-  "https://cdn.simpleicons.org/graphql/e10098",
-  "https://cdn.simpleicons.org/webrtc/ffffff",
-  "https://cdn.simpleicons.org/reactquery/ff4154",
-  "https://cdn.simpleicons.org/trpc/2596be",
-  "https://cdn.simpleicons.org/openai/ffffff",
-  "https://cdn.simpleicons.org/tailwindcss/06b6d4",
-  "https://cdn.simpleicons.org/github/22c55e",
-  "https://cdn.simpleicons.org/gitlab/6366f1",
-  "https://cdn.simpleicons.org/figma/rose",
-  "https://cdn.simpleicons.org/javascript/green",
-];
+// Definitions moved to db/homepage.ts
 
 export default function Home() {
   return (
@@ -153,11 +116,10 @@ export default function Home() {
           </div>
 
           <p className="max-w-xl border-l-2 border-cyan-300/40 pl-5 text-base leading-8 text-zinc-300">
-            {PERSONAL_DATA.bio} I turn product ideas into fast, typed, and
-            deployable web systems with a backend-first sense for reliability.
+            {PERSONAL_DATA.bio}{HOMEPAGE_DATA.bioSuffix}
           </p>
 
-          <HeroTechPills tags={heroPills} />
+          <HeroTechPills tags={HOMEPAGE_DATA.heroPills} />
 
           <div className="flex flex-col gap-3 pt-1 sm:flex-row">
             <MagneticElement strength={14}>
@@ -167,7 +129,7 @@ export default function Home() {
               >
                 <CornerPluses />
                 <Zap size={16} />
-                launch projects
+                {HOMEPAGE_DATA.buttons.projects}
                 <ArrowRight
                   size={16}
                   className="transition group-hover:translate-x-1"
@@ -181,7 +143,7 @@ export default function Home() {
               >
                 <CornerPluses />
                 <Mail size={16} />
-                open contact.env
+                {HOMEPAGE_DATA.buttons.contact}
               </Link>
             </MagneticElement>
           </div>
@@ -194,7 +156,7 @@ export default function Home() {
         >
           <div className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-400/10 via-fuchsia-400/10 to-emerald-400/10 blur-3xl" />
           <div className="scale-125 md:scale-[1.55]">
-            <IconCloud images={heroStackIcons} />
+            <IconCloud images={HOMEPAGE_DATA.heroStackIcons} />
           </div>
         </motion.div>
       </section>
@@ -202,10 +164,10 @@ export default function Home() {
       {/* Focus areas -------------------------------------------------------- */}
       <motion.section variants={itemVariants} className="flex flex-col gap-8">
         <SectionTitle
-          kicker="focus // what-i-build"
-          title="Where I do my best work"
+          kicker={HOMEPAGE_DATA.sections.focus.kicker}
+          title={HOMEPAGE_DATA.sections.focus.title}
         >
-          Three lanes I keep sharp across every build.
+          {HOMEPAGE_DATA.sections.focus.description}
         </SectionTitle>
         <div className="grid gap-4 md:grid-cols-3">
           {focusAreas.map((area) => {
@@ -235,10 +197,10 @@ export default function Home() {
       {/* Capability / stack grid -------------------------------------------- */}
       <motion.section variants={itemVariants} className="flex flex-col gap-8">
         <SectionTitle
-          kicker="stack // capabilities"
-          title="The toolkit I reach for"
+          kicker={HOMEPAGE_DATA.sections.stack.kicker}
+          title={HOMEPAGE_DATA.sections.stack.title}
         >
-          A backend-first stack, end to end.
+          {HOMEPAGE_DATA.sections.stack.description}
         </SectionTitle>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {PERSONAL_DATA.stackStats.map((stat) => {
@@ -267,12 +229,12 @@ export default function Home() {
 
       {/* Featured projects -------------------------------------------------- */}
       <motion.section variants={itemVariants} className="flex flex-col gap-8">
-        <SectionTitle kicker="work // featured" title="Selected case studies">
+        <SectionTitle kicker={HOMEPAGE_DATA.sections.projects.kicker} title={HOMEPAGE_DATA.sections.projects.title}>
           <Link
             href="/projects"
             className="group inline-flex items-center gap-2 font-mono text-cyan-200 transition hover:text-cyan-100"
           >
-            view all projects
+            {HOMEPAGE_DATA.sections.projects.linkText}
             <ArrowRight
               size={14}
               className="transition group-hover:translate-x-1"

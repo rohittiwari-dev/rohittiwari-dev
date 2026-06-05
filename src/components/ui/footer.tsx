@@ -66,9 +66,13 @@ export function Footer() {
         {/* Brand */}
         <div className="flex flex-col gap-4">
           <div className="flex items-center gap-3">
-            <span className="flex size-9 items-center justify-center bg-gradient-to-br from-cyan-400 via-fuchsia-400 to-emerald-400 text-xs font-extrabold text-black shadow-[0_0_15px_rgba(34,211,238,0.45)]">
-              {PERSONAL_DATA.initials}
-            </span>
+            <div className="relative flex size-9 items-center justify-center overflow-hidden ">
+              <img
+                src="/icon.png"
+                alt={PERSONAL_DATA.initials}
+                className="h-full w-full object-cover"
+              />
+            </div>
             <div className="flex flex-col leading-tight">
               <span className="font-mono text-sm font-semibold text-zinc-100">
                 {PERSONAL_DATA.name}

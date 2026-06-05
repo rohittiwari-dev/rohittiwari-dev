@@ -8,6 +8,7 @@ import {
   CalendarDays,
   Code2,
   Cpu,
+  ExternalLink,
   GitCommitHorizontal,
   GraduationCap,
   Heart,
@@ -29,18 +30,19 @@ import {
 } from "@/components/ui/card";
 import { CornerPluses } from "@/components/ui/corner-plus";
 import {
+  ABOUT_PAGE_DATA,
+  aboutParagraphs,
   CERTIFICATES,
   EDUCATION,
   EXPERIENCE,
   Interest,
+  operatingPrinciples,
   PERSONAL_DATA,
   SKILLS,
   SoftSkills,
 } from "@/db/cv";
 import {
-  aboutParagraphs,
   formatYearRange,
-  operatingPrinciples,
 } from "@/lib/portfolio";
 
 const containerVariants: Variants = {
@@ -60,24 +62,13 @@ const itemVariants: Variants = {
   },
 };
 
-const profileModules = [
-  {
-    label: "frontend",
-    value: "React, Next.js, animated interfaces",
-    icon: Code2,
-  },
-  {
-    label: "backend",
-    value: "Node, Nest, Express, APIs, queues",
-    icon: Workflow,
-  },
-  { label: "data", value: "PostgreSQL, MongoDB, Redis, RAG", icon: Cpu },
-  {
-    label: "thinking",
-    value: "product clarity, system design, delivery",
-    icon: Brain,
-  },
-];
+const lucideIcons: Record<string, React.ElementType> = {
+  Code2,
+  Workflow,
+  Cpu,
+  Brain,
+  Sparkles,
+};
 
 type TimelineEntry = {
   title: string;
@@ -184,11 +175,11 @@ export default function AboutPage() {
             variant="outline"
             className="w-fit border-cyan-300/30 bg-cyan-300/10 text-cyan-100"
           >
-            about.md
+            {ABOUT_PAGE_DATA.kicker}
           </Badge>
           <h1 className="text-5xl font-black uppercase leading-[0.95] text-white sm:text-7xl">
-            Developer
-            <span className="block animated-gradient-text">profile</span>
+            {ABOUT_PAGE_DATA.title}
+            <span className="block animated-gradient-text">{ABOUT_PAGE_DATA.titleGradient}</span>
           </h1>
           <p className="max-w-lg text-base leading-8 text-zinc-300">
             {aboutParagraphs[0]}
@@ -207,7 +198,7 @@ export default function AboutPage() {
             href="/projects"
             className="group inline-flex w-fit items-center gap-2 border border-cyan-300/40 bg-cyan-300/10 px-4 py-3 font-mono text-sm text-cyan-50 transition hover:bg-cyan-300/20"
           >
-            inspect work
+            {ABOUT_PAGE_DATA.inspectWorkButton}
             <ArrowRight
               size={16}
               className="transition group-hover:translate-x-1"
@@ -233,7 +224,7 @@ export default function AboutPage() {
 
             {/* header strip */}
             <div className="absolute inset-x-0 top-0 flex items-center justify-between border-b border-white/10 bg-black/40 px-4 py-2.5 font-mono text-[10px] text-zinc-500">
-              <span>profile.portrait</span>
+              <span>{ABOUT_PAGE_DATA.profilePortraitLabel}</span>
               <span className="flex gap-1.5">
                 <span className="size-2 rounded-full bg-rose-400/70" />
                 <span className="size-2 rounded-full bg-amber-300/70" />
@@ -262,8 +253,8 @@ export default function AboutPage() {
       {/* Profile file ------------------------------------------------------- */}
       <motion.section variants={itemVariants}>
         <EditorPanel
-          filename="profile.rohit.ts"
-          status="About  markdown-preview"
+          filename={ABOUT_PAGE_DATA.editorPanel.filename}
+          status={ABOUT_PAGE_DATA.editorPanel.status}
         >
           <div className="space-y-5">
             {aboutParagraphs.slice(1).map((paragraph, index) => (
@@ -301,8 +292,8 @@ export default function AboutPage() {
         variants={itemVariants}
         className="grid gap-4 md:grid-cols-2 xl:grid-cols-4"
       >
-        {profileModules.map((module) => {
-          const Icon = module.icon;
+        {ABOUT_PAGE_DATA.profileModules.map((module) => {
+          const Icon = lucideIcons[module.icon] ?? Sparkles;
           return (
             <Card
               key={module.label}
@@ -330,7 +321,7 @@ export default function AboutPage() {
         className="grid gap-x-10 gap-y-12 lg:grid-cols-2"
       >
         <div className="space-y-6">
-          <SectionLabel>experience.timeline</SectionLabel>
+          <SectionLabel>{ABOUT_PAGE_DATA.timelines.experience}</SectionLabel>
           <Timeline
             entries={experienceTimeline}
             accent="text-cyan-300"
@@ -339,7 +330,7 @@ export default function AboutPage() {
         </div>
 
         <div className="space-y-6">
-          <SectionLabel>education.timeline</SectionLabel>
+          <SectionLabel>{ABOUT_PAGE_DATA.timelines.education}</SectionLabel>
           <Timeline
             entries={educationTimeline}
             accent="text-emerald-300"
@@ -350,15 +341,15 @@ export default function AboutPage() {
 
       {/* Skills nucleus ----------------------------------------------------- */}
       <motion.section variants={itemVariants} className="space-y-6">
-        <SectionLabel>skills.nucleus — {SKILLS.length} orbitals</SectionLabel>
-        <EditorPanel filename="skills.nucleus" status="electron-orbit  live">
+        <SectionLabel>{ABOUT_PAGE_DATA.skills.label} — {SKILLS.length} orbitals</SectionLabel>
+        <EditorPanel filename={ABOUT_PAGE_DATA.skills.editorPanel.filename} status={ABOUT_PAGE_DATA.skills.editorPanel.status}>
           <div className="py-4">
             <SkillsNucleus groups={SKILLS} />
           </div>
           <div className="neon-divider my-8" />
           <div className="mb-3 flex items-center gap-2 font-mono text-xs text-emerald-200">
             <Sparkles size={14} />
-            soft-skills
+            {ABOUT_PAGE_DATA.skills.softSkillsLabel}
           </div>
           <div className="flex flex-wrap gap-2">
             {SoftSkills.map((skill) => (
@@ -379,7 +370,7 @@ export default function AboutPage() {
         className="grid gap-x-10 gap-y-12 lg:grid-cols-2"
       >
         <div className="space-y-6">
-          <SectionLabel>certifications.log</SectionLabel>
+          <SectionLabel>{ABOUT_PAGE_DATA.certifications.label}</SectionLabel>
           <div className="grid gap-4 sm:grid-cols-2">
             {CERTIFICATES.map((item) => (
               <Card
@@ -391,7 +382,19 @@ export default function AboutPage() {
                     <Award size={22} className="mt-1 shrink-0 text-amber-300" />
                     <div>
                       <CardTitle className="text-base text-white">
-                        {item.title}
+                        {item.url ? (
+                          <a
+                            href={item.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 hover:text-amber-200 hover:underline transition-colors"
+                          >
+                            {item.title}
+                            <ExternalLink size={13} className="opacity-60" />
+                          </a>
+                        ) : (
+                          item.title
+                        )}
                       </CardTitle>
                       <CardDescription className="mt-1 text-zinc-400">
                         {item.institution} / {new Date(item.date).getFullYear()}
@@ -405,11 +408,11 @@ export default function AboutPage() {
         </div>
 
         <div className="space-y-6">
-          <SectionLabel>interests.cfg</SectionLabel>
+          <SectionLabel>{ABOUT_PAGE_DATA.interests.label}</SectionLabel>
           <div className="glass-surface flex flex-col gap-4 p-6">
             <div className="flex items-center gap-2 font-mono text-xs text-fuchsia-200">
               <Heart size={14} />
-              outside the editor
+              {ABOUT_PAGE_DATA.interests.subLabel}
             </div>
             <div className="flex flex-wrap gap-2">
               {Interest.map((interest) => (
