@@ -27,11 +27,6 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { PERSONAL_DATA } from "@/db/cv";
 
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
-};
-
 const itemVariants: Variants = {
   hidden: { opacity: 0, y: 18 },
   visible: {
@@ -169,7 +164,7 @@ export default function ContactPage() {
       setErrors((prev) => ({ ...prev, [key]: undefined }));
     };
 
-  const validate = (): boolean => {
+  const validate = (): FormErrors => {
     const next: FormErrors = {};
     if (!form.name.trim()) next.name = "Tell me who you are.";
     if (!form.email.trim()) next.email = "An email helps me reply.";
@@ -177,12 +172,20 @@ export default function ContactPage() {
       next.email = "That email doesn't look right.";
     if (!form.message.trim()) next.message = "Add a short brief.";
     setErrors(next);
-    return Object.keys(next).length === 0;
+    return next;
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validate() || !canEmail) return;
+    const found = validate();
+    if (Object.keys(found).length > 0 || !canEmail) {
+      // Move focus to the first field that failed validation.
+      const firstInvalid = (["name", "email", "message"] as const).find(
+        (key) => found[key],
+      );
+      if (firstInvalid) document.getElementById(firstInvalid)?.focus();
+      return;
+    }
     const subject = encodeURIComponent(
       form.subject.trim() || `Project inquiry from ${form.name}`,
     );
@@ -195,15 +198,12 @@ export default function ContactPage() {
   };
 
   return (
-    <motion.div
-      className="mx-auto flex w-full max-w-7xl flex-col gap-12 px-4 pb-20 sm:px-6 lg:px-8"
-      initial="hidden"
-      animate="visible"
-      variants={containerVariants}
-    >
+    <div className="mx-auto flex w-full max-w-7xl flex-col gap-12 px-4 pb-20 sm:px-6 lg:px-8">
       {/* Header ----------------------------------------------------------- */}
       <motion.section
         variants={itemVariants}
+        initial="hidden"
+        animate="visible"
         className="max-w-3xl space-y-5 pt-10"
       >
         <Badge
@@ -226,13 +226,20 @@ export default function ContactPage() {
       {/* Form + channels -------------------------------------------------- */}
       <motion.section
         variants={itemVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.15 }}
         className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]"
       >
         {/* Compose form */}
         <EditorPanel filename="message.compose" status="draft  unsent">
           <form onSubmit={handleSubmit} noValidate className="space-y-5">
             {sent ? (
-              <div className="flex items-center gap-2 border border-emerald-300/30 bg-emerald-300/10 px-4 py-3 font-mono text-xs text-emerald-100">
+              <div
+                role="status"
+                aria-live="polite"
+                className="flex items-center gap-2 border border-emerald-300/30 bg-emerald-300/10 px-4 py-3 font-mono text-xs text-emerald-100"
+              >
                 <CheckCircle2 size={15} />
                 Opening your mail client with the message prefilled…
               </div>
@@ -251,11 +258,17 @@ export default function ContactPage() {
                   value={form.name}
                   onChange={update("name")}
                   placeholder="Ada Lovelace"
+                  autoComplete="name"
                   className={fieldClass}
                   aria-invalid={Boolean(errors.name)}
+                  aria-describedby={errors.name ? "name-error" : undefined}
                 />
                 {errors.name ? (
-                  <p className="font-mono text-[10px] text-rose-300">
+                  <p
+                    id="name-error"
+                    role="alert"
+                    className="font-mono text-[10px] text-rose-300"
+                  >
                     {errors.name}
                   </p>
                 ) : null}
@@ -271,14 +284,21 @@ export default function ContactPage() {
                 <Input
                   id="email"
                   type="email"
+                  inputMode="email"
+                  autoComplete="email"
                   value={form.email}
                   onChange={update("email")}
                   placeholder="you@domain.com"
                   className={fieldClass}
                   aria-invalid={Boolean(errors.email)}
+                  aria-describedby={errors.email ? "email-error" : undefined}
                 />
                 {errors.email ? (
-                  <p className="font-mono text-[10px] text-rose-300">
+                  <p
+                    id="email-error"
+                    role="alert"
+                    className="font-mono text-[10px] text-rose-300"
+                  >
                     {errors.email}
                   </p>
                 ) : null}
@@ -315,9 +335,14 @@ export default function ContactPage() {
                 placeholder="Problem statement, rough scope, and any constraints already known…"
                 className="min-h-36 border-white/10 bg-white/[0.03] text-sm text-zinc-100 placeholder:text-zinc-600 focus-visible:border-cyan-300/50 focus-visible:ring-cyan-300/20"
                 aria-invalid={Boolean(errors.message)}
+                aria-describedby={errors.message ? "message-error" : undefined}
               />
               {errors.message ? (
-                <p className="font-mono text-[10px] text-rose-300">
+                <p
+                  id="message-error"
+                  role="alert"
+                  className="font-mono text-[10px] text-rose-300"
+                >
                   {errors.message}
                 </p>
               ) : null}
@@ -416,6 +441,6 @@ export default function ContactPage() {
           ) : null}
         </div>
       </motion.section>
-    </motion.div>
+    </div>
   );
 }

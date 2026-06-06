@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import { useTheme } from "next-themes";
+import { useEffect, useRef, useState } from "react";
 
 interface Particle {
   x: number;
@@ -15,6 +15,15 @@ interface Particle {
 export function ParticleNetwork() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { theme } = useTheme();
+  const [reducedMotion, setReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReducedMotion(mq.matches);
+    const onChange = () => setReducedMotion(mq.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -134,7 +143,10 @@ export function ParticleNetwork() {
         }
       }
 
-      animationFrameId = requestAnimationFrame(animate);
+      // Under reduced-motion we render a single static frame only.
+      if (!reducedMotion) {
+        animationFrameId = requestAnimationFrame(animate);
+      }
     };
 
     init();
@@ -164,7 +176,7 @@ export function ParticleNetwork() {
       document.removeEventListener("mouseleave", handleMouseLeave);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [theme]);
+  }, [theme, reducedMotion]);
 
   return (
     <div className="fixed inset-0 z-0 bg-black pointer-events-none overflow-hidden">
@@ -174,7 +186,7 @@ export function ParticleNetwork() {
         style={{
           background:
             "conic-gradient(from 0deg at 50% 50%, #172554 0deg, #4c1d95 90deg, #0f172a 180deg, #831843 270deg, #172554 360deg)",
-          animation: "spin 30s linear infinite",
+          animation: reducedMotion ? "none" : "bg-spin 30s linear infinite",
         }}
       />
       {/* Subtle radial overlay to focus the center */}
@@ -184,16 +196,6 @@ export function ParticleNetwork() {
         ref={canvasRef}
         className="block w-full h-full opacity-80 z-10 relative"
       />
-      <style jsx>{`
-        @keyframes spin {
-          from {
-            transform: rotate(0deg);
-          }
-          to {
-            transform: rotate(360deg);
-          }
-        }
-      `}</style>
     </div>
   );
 }

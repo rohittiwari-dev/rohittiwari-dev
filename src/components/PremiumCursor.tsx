@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring } from "motion/react";
+import { useEffect, useState } from "react";
 
 export default function PremiumCursor() {
   const [enabled, setEnabled] = useState<boolean | null>(null);
@@ -22,11 +22,16 @@ export default function PremiumCursor() {
       navigator.maxTouchPoints > 0 ||
       window.matchMedia("(pointer: coarse)").matches;
 
-    if (touch) {
+    // Respect users who prefer reduced motion — keep the native cursor.
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    if (touch || reducedMotion) {
       setEnabled(false);
       return;
     }
-    
+
     setEnabled(true);
     document.body.classList.add("custom-cursor-active");
 
@@ -79,9 +84,15 @@ export default function PremiumCursor() {
           translateY: "-50%",
           width: isHovered ? 48 : 32,
           height: isHovered ? 48 : 32,
-          border: isHovered ? "1px solid rgba(139, 92, 246, 0.8)" : "1px solid rgba(139, 92, 246, 0.4)",
-          backgroundColor: isHovered ? "rgba(139, 92, 246, 0.15)" : "transparent",
-          boxShadow: isHovered ? "0 0 25px rgba(139, 92, 246, 0.6)" : "0 0 15px rgba(139, 92, 246, 0.3)",
+          border: isHovered
+            ? "1px solid rgba(139, 92, 246, 0.8)"
+            : "1px solid rgba(139, 92, 246, 0.4)",
+          backgroundColor: isHovered
+            ? "rgba(139, 92, 246, 0.15)"
+            : "transparent",
+          boxShadow: isHovered
+            ? "0 0 25px rgba(139, 92, 246, 0.6)"
+            : "0 0 15px rgba(139, 92, 246, 0.3)",
         }}
         animate={{
           scale: isHovered ? 1 : [1, 1.15, 1],
@@ -107,7 +118,8 @@ export default function PremiumCursor() {
           width: isHovered ? 0 : 8,
           height: isHovered ? 0 : 8,
           backgroundColor: "rgb(99, 102, 241)", // Indigo-500
-          boxShadow: "0 0 15px rgba(99, 102, 241, 0.9), 0 0 8px rgba(139, 92, 246, 0.8)",
+          boxShadow:
+            "0 0 15px rgba(99, 102, 241, 0.9), 0 0 8px rgba(139, 92, 246, 0.8)",
         }}
         transition={{ type: "tween", duration: 0.1 }}
       />

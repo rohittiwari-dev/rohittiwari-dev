@@ -76,7 +76,7 @@ export function ProjectCard({
       whileHover={{ y: -6 }}
       transition={{ type: "spring", stiffness: 300, damping: 24 }}
       className={cn(
-        "group relative flex h-full overflow-hidden rounded-none border border-white/10 bg-black/40 backdrop-blur-2xl transition-colors duration-500 hover:border-white/25",
+        "group relative flex h-full overflow-visible rounded-none border border-white/10 bg-black/40 backdrop-blur-2xl transition-colors duration-500 hover:border-white/25",
         isHorizontal
           ? "min-h-[220px] flex-col sm:flex-row"
           : "min-h-[380px] flex-col",

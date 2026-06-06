@@ -180,6 +180,33 @@
     @apply font-sans;
     scroll-behavior: smooth;
   }
+
+  /* Accessible keyboard focus — visible cyan ring on any focused control,
+     shown only for keyboard users (not on mouse click). */
+  :focus-visible {
+    outline: 2px solid rgba(34, 211, 238, 0.9);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+/* Skip-to-content link — visually hidden until focused via keyboard. */
+.skip-link {
+  position: fixed;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 100;
+  transform: translateY(-150%);
+  transition: transform 150ms ease-out;
+  background: rgba(4, 8, 14, 0.95);
+  border: 1px solid rgba(34, 211, 238, 0.6);
+  color: #a5f3fc;
+  padding: 0.5rem 0.9rem;
+  font-family: var(--font-geist-mono);
+  font-size: 0.8rem;
+}
+.skip-link:focus {
+  transform: translateY(0);
 }
 
 .custom-cursor-active,
@@ -280,6 +307,16 @@
   }
 }
 
+/* Slow conic-gradient rotation for the particle-network backdrop. */
+@keyframes bg-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
@@ -321,5 +358,29 @@
   }
   to {
     transform: scaleX(1);
+  }
+}
+
+/* Respect users who prefer reduced motion: neutralize looping/decorative
+   animations and collapse transitions to a near-instant cross-fade so the
+   site stays usable without vestibular discomfort. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .animated-gradient-text {
+    animation: none !important;
+    background-position: 0% 50% !important;
+  }
+  .editor-scanline::after {
+    display: none !important;
   }
 }

@@ -72,14 +72,14 @@ const lucideIcons: Record<string, React.ElementType> = {
 
 export default function Home() {
   return (
-    <motion.div
-      className="mx-auto flex w-full max-w-7xl flex-col gap-20 px-4 pb-24 sm:px-8 lg:px-12"
-      initial="hidden"
-      animate="visible"
-      variants={containerVariants}
-    >
+    <div className="mx-auto flex w-full max-w-7xl flex-col gap-20 px-4 pb-24 sm:px-8 lg:px-12">
       {/* Hero --------------------------------------------------------------- */}
-      <section className="relative z-10 grid w-full items-center gap-10 pt-2 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12">
+      <motion.section
+        className="relative z-10 grid w-full items-center gap-10 pt-2 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12"
+        initial="hidden"
+        animate="visible"
+        variants={containerVariants}
+      >
         <motion.div variants={itemVariants} className="flex flex-col gap-6">
           <div className="glass-surface flex w-fit items-center gap-3 rounded-full px-4 py-2 font-mono text-xs text-emerald-200">
             <span className="relative flex size-2.5">
@@ -116,7 +116,8 @@ export default function Home() {
           </div>
 
           <p className="max-w-xl border-l-2 border-cyan-300/40 pl-5 text-base leading-8 text-zinc-300">
-            {PERSONAL_DATA.bio}{HOMEPAGE_DATA.bioSuffix}
+            {PERSONAL_DATA.bio}
+            {HOMEPAGE_DATA.bioSuffix}
           </p>
 
           <HeroTechPills tags={HOMEPAGE_DATA.heroPills} />
@@ -159,10 +160,16 @@ export default function Home() {
             <IconCloud images={HOMEPAGE_DATA.heroStackIcons} />
           </div>
         </motion.div>
-      </section>
+      </motion.section>
 
       {/* Focus areas -------------------------------------------------------- */}
-      <motion.section variants={itemVariants} className="flex flex-col gap-8">
+      <motion.section
+        variants={itemVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        className="flex flex-col gap-8"
+      >
         <SectionTitle
           kicker={HOMEPAGE_DATA.sections.focus.kicker}
           title={HOMEPAGE_DATA.sections.focus.title}
@@ -175,8 +182,13 @@ export default function Home() {
             return (
               <Card
                 key={area.title}
-                className="border-white/10 bg-black/40 text-zinc-100 backdrop-blur-xl"
+                className="relative overflow-visible border-white/10 bg-black/10 text-zinc-100 backdrop-blur-xl"
               >
+                <CornerPluses
+                  size={10}
+                  strokeWidth={0.75}
+                  className="text-cyan-300/60"
+                />
                 <CardHeader>
                   <div className="mb-2 grid size-10 place-items-center border border-white/10 bg-white/[0.04] text-cyan-200">
                     <Icon size={18} />
@@ -195,7 +207,13 @@ export default function Home() {
       </motion.section>
 
       {/* Capability / stack grid -------------------------------------------- */}
-      <motion.section variants={itemVariants} className="flex flex-col gap-8">
+      <motion.section
+        variants={itemVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        className="flex flex-col gap-8"
+      >
         <SectionTitle
           kicker={HOMEPAGE_DATA.sections.stack.kicker}
           title={HOMEPAGE_DATA.sections.stack.title}
@@ -208,8 +226,13 @@ export default function Home() {
             return (
               <div
                 key={`${stat.label}-${stat.value}`}
-                className="group flex items-start gap-3 border border-white/10 bg-white/[0.03] p-4 transition hover:border-white/20 hover:bg-white/[0.05]"
+                className="relative overflow-visible group flex items-start gap-3 border border-white/10 bg-white/[0.03] p-4 transition hover:border-white/20 hover:bg-white/[0.05]"
               >
+                <CornerPluses
+                  size={10}
+                  strokeWidth={0.75}
+                  className="text-cyan-300/60"
+                />
                 <div
                   className={`grid size-9 shrink-0 place-items-center border border-white/10 bg-black/40 ${stat.tone}`}
                 >
@@ -228,8 +251,17 @@ export default function Home() {
       </motion.section>
 
       {/* Featured projects -------------------------------------------------- */}
-      <motion.section variants={itemVariants} className="flex flex-col gap-8">
-        <SectionTitle kicker={HOMEPAGE_DATA.sections.projects.kicker} title={HOMEPAGE_DATA.sections.projects.title}>
+      <motion.section
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.15 }}
+        className="flex flex-col gap-8"
+      >
+        <SectionTitle
+          kicker={HOMEPAGE_DATA.sections.projects.kicker}
+          title={HOMEPAGE_DATA.sections.projects.title}
+        >
           <Link
             href="/projects"
             className="group inline-flex items-center gap-2 font-mono text-cyan-200 transition hover:text-cyan-100"
@@ -252,6 +284,6 @@ export default function Home() {
           ))}
         </div>
       </motion.section>
-    </motion.div>
+    </div>
   );
 }

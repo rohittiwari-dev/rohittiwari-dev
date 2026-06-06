@@ -1,6 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Fira_Code } from "next/font/google";
 import PremiumCursor from "../components/PremiumCursor";
+import ScrollProgress from "../components/ScrollProgress";
 import { PERSONAL_DATA } from "../db/cv";
 import "./globals.css";
 import { Footer } from "../components/ui/footer";
@@ -22,6 +23,11 @@ export const metadata: Metadata = {
   description: `${PERSONAL_DATA.headline} - ${PERSONAL_DATA.bio}`,
 };
 
+export const viewport: Viewport = {
+  themeColor: "#04080e",
+  colorScheme: "dark",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -33,6 +39,11 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased dark`}
     >
       <body className="min-h-full flex flex-col bg-black text-zinc-100 overflow-x-hidden selection:bg-cyan-500/30 selection:text-cyan-100 relative">
+        <a href="#main-content" className="skip-link">
+          Skip to content
+        </a>
+
+        <ScrollProgress />
         <PremiumCursor />
 
         {/* Core Sci-Fi Particle Network Background Layer */}
@@ -42,7 +53,10 @@ export default function RootLayout({
         <Header />
 
         {/* Main content area */}
-        <main className="flex-1 flex flex-col w-full py-12 relative z-10 overflow-hidden">
+        <main
+          id="main-content"
+          className="flex-1 flex flex-col w-full py-12 relative z-10 overflow-hidden"
+        >
           {children}
         </main>
 

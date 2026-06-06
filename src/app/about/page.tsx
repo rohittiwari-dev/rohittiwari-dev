@@ -41,17 +41,7 @@ import {
   SKILLS,
   SoftSkills,
 } from "@/db/cv";
-import {
-  formatYearRange,
-} from "@/lib/portfolio";
-
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1 },
-  },
-};
+import { formatYearRange } from "@/lib/portfolio";
 
 const itemVariants: Variants = {
   hidden: { opacity: 0, y: 18 },
@@ -121,6 +111,11 @@ function Timeline({
     <ol className="relative ml-3 space-y-5 border-l border-white/10 pl-7 sm:pl-8">
       {entries.map((item) => (
         <li key={`${item.org}-${item.start_date}`} className="relative">
+          <CornerPluses
+            size={10}
+            strokeWidth={0.75}
+            className="text-cyan-300/60"
+          />
           <span
             className={`absolute top-1.5 grid size-7 place-items-center rounded-full border border-white/10 bg-black ${accent} -left-[42px] sm:-left-[46px]`}
           >
@@ -158,46 +153,61 @@ function Timeline({
 
 export default function AboutPage() {
   return (
-    <motion.div
-      className="mx-auto flex w-full max-w-7xl flex-col gap-16 px-4 pb-20 sm:px-6 lg:px-8"
-      initial="hidden"
-      animate="visible"
-      variants={containerVariants}
-    >
+    <div className="mx-auto flex w-full max-w-7xl flex-col gap-16 px-4 pb-20 sm:px-6 lg:px-8">
       {/* Intro — asymmetric monogram portrait ------------------------------- */}
       <motion.section
         variants={itemVariants}
+        initial="hidden"
+        animate="visible"
         className="grid gap-10 pt-10 lg:grid-cols-[1fr_0.82fr] lg:items-center"
       >
         {/* Compact intro */}
         <div className="flex flex-col gap-6">
           <Badge
             variant="outline"
-            className="w-fit border-cyan-300/30 bg-cyan-300/10 text-cyan-100"
+            className="relative w-fit border-cyan-300/30 bg-cyan-300/10 text-cyan-100"
           >
+            <CornerPluses
+              size={10}
+              strokeWidth={0.75}
+              className="text-cyan-300/60"
+            />
             {ABOUT_PAGE_DATA.kicker}
           </Badge>
           <h1 className="text-5xl font-black uppercase leading-[0.95] text-white sm:text-7xl">
             {ABOUT_PAGE_DATA.title}
-            <span className="block animated-gradient-text">{ABOUT_PAGE_DATA.titleGradient}</span>
+            <span className="block animated-gradient-text">
+              {ABOUT_PAGE_DATA.titleGradient}
+            </span>
           </h1>
           <p className="max-w-lg text-base leading-8 text-zinc-300">
             {aboutParagraphs[0]}
           </p>
           <div className="flex flex-wrap gap-2 font-mono text-xs text-zinc-400">
-            <span className="inline-flex items-center gap-2 border border-white/10 bg-white/[0.04] px-3 py-2">
+            <span className="inline-flex items-center gap-2 border border-white/10 bg-white/[0.04] px-3 py-2 relative">
+              <CornerPluses
+                size={10}
+                strokeWidth={0.75}
+                className="text-cyan-300/60"
+              />
               <MapPin size={14} className="text-cyan-300" />
               {PERSONAL_DATA.location}
             </span>
-            <span className="inline-flex items-center gap-2 border border-white/10 bg-white/[0.04] px-3 py-2">
+            <span className="inline-flex items-center gap-2 border border-white/10 bg-white/[0.04] px-3 py-2 relative">
+              <CornerPluses
+                size={10}
+                strokeWidth={0.75}
+                className="text-cyan-300/60"
+              />
               <Terminal size={14} className="text-emerald-300" />
               {PERSONAL_DATA.headline}
             </span>
           </div>
           <Link
             href="/projects"
-            className="group inline-flex w-fit items-center gap-2 border border-cyan-300/40 bg-cyan-300/10 px-4 py-3 font-mono text-sm text-cyan-50 transition hover:bg-cyan-300/20"
+            className="group relative inline-flex w-fit items-center gap-2 border border-cyan-300/40 bg-cyan-300/10 px-4 py-3 font-mono text-sm text-cyan-50 transition hover:bg-cyan-300/20"
           >
+            <CornerPluses size={10} strokeWidth={0.75} />
             {ABOUT_PAGE_DATA.inspectWorkButton}
             <ArrowRight
               size={16}
@@ -208,7 +218,7 @@ export default function AboutPage() {
 
         {/* Monogram portrait tile */}
         <div className="relative mx-auto w-full max-w-sm lg:mx-0 lg:ml-auto">
-          <div className="relative aspect-[4/5] overflow-hidden border border-white/10 bg-black/50 backdrop-blur-xl">
+          <div className="relative aspect-[4/5] overflow-visible border border-white/10 bg-black/50 backdrop-blur-xl">
             <CornerPluses />
             {/* grid texture */}
             <div
@@ -251,7 +261,12 @@ export default function AboutPage() {
       </motion.section>
 
       {/* Profile file ------------------------------------------------------- */}
-      <motion.section variants={itemVariants}>
+      <motion.section
+        variants={itemVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+      >
         <EditorPanel
           filename={ABOUT_PAGE_DATA.editorPanel.filename}
           status={ABOUT_PAGE_DATA.editorPanel.status}
@@ -290,6 +305,9 @@ export default function AboutPage() {
       {/* Capability modules ------------------------------------------------- */}
       <motion.section
         variants={itemVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
         className="grid gap-4 md:grid-cols-2 xl:grid-cols-4"
       >
         {ABOUT_PAGE_DATA.profileModules.map((module) => {
@@ -297,8 +315,13 @@ export default function AboutPage() {
           return (
             <Card
               key={module.label}
-              className="border-white/10 bg-black/40 text-zinc-100 backdrop-blur-xl"
+              className="relative overflow-visible border-white/10 bg-black/30 text-zinc-100 backdrop-blur-xl"
             >
+              <CornerPluses
+                size={10}
+                strokeWidth={0.75}
+                className="text-cyan-300/60"
+              />
               <CardHeader>
                 <div className="mb-2 grid size-10 place-items-center border border-white/10 bg-white/[0.04] text-cyan-200">
                   <Icon size={18} />
@@ -318,6 +341,9 @@ export default function AboutPage() {
       {/* Experience + Education timelines (separate tracks) ----------------- */}
       <motion.section
         variants={itemVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.15 }}
         className="grid gap-x-10 gap-y-12 lg:grid-cols-2"
       >
         <div className="space-y-6">
@@ -340,9 +366,20 @@ export default function AboutPage() {
       </motion.section>
 
       {/* Skills nucleus ----------------------------------------------------- */}
-      <motion.section variants={itemVariants} className="space-y-6">
-        <SectionLabel>{ABOUT_PAGE_DATA.skills.label} — {SKILLS.length} orbitals</SectionLabel>
-        <EditorPanel filename={ABOUT_PAGE_DATA.skills.editorPanel.filename} status={ABOUT_PAGE_DATA.skills.editorPanel.status}>
+      <motion.section
+        variants={itemVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.15 }}
+        className="space-y-6"
+      >
+        <SectionLabel>
+          {ABOUT_PAGE_DATA.skills.label} — {SKILLS.length} orbitals
+        </SectionLabel>
+        <EditorPanel
+          filename={ABOUT_PAGE_DATA.skills.editorPanel.filename}
+          status={ABOUT_PAGE_DATA.skills.editorPanel.status}
+        >
           <div className="py-4">
             <SkillsNucleus groups={SKILLS} />
           </div>
@@ -367,6 +404,9 @@ export default function AboutPage() {
       {/* Certificates + Interests ------------------------------------------- */}
       <motion.section
         variants={itemVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.15 }}
         className="grid gap-x-10 gap-y-12 lg:grid-cols-2"
       >
         <div className="space-y-6">
@@ -375,8 +415,13 @@ export default function AboutPage() {
             {CERTIFICATES.map((item) => (
               <Card
                 key={item.title}
-                className="border-white/10 bg-black/40 text-zinc-100 backdrop-blur-xl"
+                className="relative overflow-visible border-white/10 bg-black/40 text-zinc-100 backdrop-blur-xl"
               >
+                <CornerPluses
+                  size={10}
+                  strokeWidth={0.75}
+                  className="text-cyan-300/60"
+                />
                 <CardHeader>
                   <div className="flex items-start gap-3">
                     <Award size={22} className="mt-1 shrink-0 text-amber-300" />
@@ -427,6 +472,6 @@ export default function AboutPage() {
           </div>
         </div>
       </motion.section>
-    </motion.div>
+    </div>
   );
 }
