@@ -20,6 +20,7 @@ import {
 import { motion, type Variants } from "motion/react";
 import Link from "next/link";
 import EditorPanel from "@/components/EditorPanel";
+import ResumeButton from "@/components/ResumeButton";
 import SkillsNucleus from "@/components/SkillsNucleus";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -203,17 +204,20 @@ export default function AboutPage() {
               {PERSONAL_DATA.headline}
             </span>
           </div>
-          <Link
-            href="/projects"
-            className="group relative inline-flex w-fit items-center gap-2 border border-cyan-300/40 bg-cyan-300/10 px-4 py-3 font-mono text-sm text-cyan-50 transition hover:bg-cyan-300/20"
-          >
-            <CornerPluses size={10} strokeWidth={0.75} />
-            {ABOUT_PAGE_DATA.inspectWorkButton}
-            <ArrowRight
-              size={16}
-              className="transition group-hover:translate-x-1"
-            />
-          </Link>
+          <div className="flex flex-wrap gap-3">
+            <Link
+              href="/projects"
+              className="group relative inline-flex w-fit items-center gap-2 border border-cyan-300/40 bg-cyan-300/10 px-4 py-3 font-mono text-sm text-cyan-50 transition hover:bg-cyan-300/20"
+            >
+              <CornerPluses size={10} strokeWidth={0.75} />
+              {ABOUT_PAGE_DATA.inspectWorkButton}
+              <ArrowRight
+                size={16}
+                className="transition group-hover:translate-x-1"
+              />
+            </Link>
+            <ResumeButton className="px-4 py-3" />
+          </div>
         </div>
 
         {/* Monogram portrait tile */}

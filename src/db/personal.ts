@@ -17,6 +17,9 @@ export const PERSONAL_DATA = {
   linkedin:
     "https://www.linkedin.com/in/rohit-tiwari-a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8",
   github: "https://github.com/rohittiwari",
+  // Drop your PDF at `public/resume.pdf` (or change this path). Leave empty
+  // to hide every "download résumé" button automatically.
+  resume: "/resume.pdf",
   location: "Dhaka, Bangladesh",
   address: "Kathmandu, Nepal",
   telegram: "https://t.me/rohittiwari",

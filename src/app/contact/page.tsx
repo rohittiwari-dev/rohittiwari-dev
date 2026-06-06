@@ -21,6 +21,7 @@ import {
 import { motion, type Variants } from "motion/react";
 import { useState } from "react";
 import EditorPanel from "@/components/EditorPanel";
+import ResumeButton from "@/components/ResumeButton";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -221,6 +222,7 @@ export default function ContactPage() {
           redesign you want to move forward. Drop a note below, or reach out on
           any channel that suits you.
         </p>
+        <ResumeButton className="px-4 py-3" />
       </motion.section>
 
       {/* Form + channels -------------------------------------------------- */}

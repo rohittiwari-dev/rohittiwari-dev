@@ -23,6 +23,7 @@ import HeroTechPills from "@/components/HeroTechPills";
 import { SectionTitle } from "@/components/home/section-title";
 import MagneticElement from "@/components/MagneticElement";
 import { ProjectCard } from "@/components/project-card";
+import ResumeButton from "@/components/ResumeButton";
 import RotatingTypewriter from "@/components/RotatingTypewriter";
 import {
   Card,
@@ -122,11 +123,11 @@ export default function Home() {
 
           <HeroTechPills tags={HOMEPAGE_DATA.heroPills} />
 
-          <div className="flex flex-col gap-3 pt-1 sm:flex-row">
-            <MagneticElement strength={14}>
+          <div className="flex flex-col gap-3 pt-1 sm:flex-row sm:flex-wrap sm:items-center">
+            <MagneticElement strength={14} className="w-full sm:w-auto">
               <Link
                 href="/projects"
-                className="group relative inline-flex items-center justify-center gap-2 border border-cyan-300/50 bg-cyan-300/12 px-5 py-3 font-mono text-sm text-cyan-50 shadow-[0_0_28px_rgba(34,211,238,0.25)] transition hover:bg-cyan-300/20"
+                className="group relative inline-flex w-full items-center justify-center gap-2 border border-cyan-300/60 bg-cyan-300/15 px-5 py-3 font-mono text-sm text-cyan-50 shadow-[0_0_28px_rgba(34,211,238,0.25)] transition hover:bg-cyan-300/25 sm:w-auto"
               >
                 <CornerPluses />
                 <Zap size={16} />
@@ -137,15 +138,18 @@ export default function Home() {
                 />
               </Link>
             </MagneticElement>
-            <MagneticElement strength={10}>
+            <MagneticElement strength={10} className="w-full sm:w-auto">
               <Link
                 href="/contact"
-                className="group relative inline-flex items-center justify-center gap-2 border border-white/10 bg-white/[0.04] px-5 py-3 font-mono text-sm text-zinc-100 transition hover:border-fuchsia-300/50 hover:bg-fuchsia-300/10"
+                className="group relative inline-flex w-full items-center justify-center gap-2 border border-white/15 bg-white/[0.03] px-5 py-3 font-mono text-sm text-zinc-200 transition hover:border-white/30 hover:bg-white/[0.06] sm:w-auto"
               >
                 <CornerPluses />
                 <Mail size={16} />
                 {HOMEPAGE_DATA.buttons.contact}
               </Link>
+            </MagneticElement>
+            <MagneticElement strength={10} className="w-full sm:w-auto">
+              <ResumeButton variant="ghost" className="w-full sm:w-auto" />
             </MagneticElement>
           </div>
         </motion.div>
