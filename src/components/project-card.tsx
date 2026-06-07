@@ -76,13 +76,19 @@ export function ProjectCard({
       whileHover={{ y: -6 }}
       transition={{ type: "spring", stiffness: 300, damping: 24 }}
       className={cn(
-        "group relative flex h-full overflow-visible rounded-none border border-white/10 bg-black/40 backdrop-blur-2xl transition-colors duration-500 hover:border-white/25",
+        "group relative flex h-full cursor-pointer overflow-visible rounded-none border border-white/10 bg-black/40 backdrop-blur-2xl transition-colors duration-500 hover:border-white/25",
         isHorizontal
           ? "min-h-[220px] flex-col sm:flex-row"
           : "min-h-[380px] flex-col",
         className,
       )}
     >
+      {/* Full-card clickable overlay */}
+      <Link
+        href={`/projects/${projectSlug(project.title)}`}
+        className="absolute inset-0 z-20"
+        aria-label={`View ${project.title} project`}
+      />
       <CornerPluses />
       <GlowingEffect
         disabled={false}
@@ -147,7 +153,7 @@ export function ProjectCard({
           <h3 className="text-xl font-bold tracking-tight text-white transition-colors duration-300 group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-zinc-400 group-hover:bg-clip-text group-hover:text-transparent sm:text-2xl">
             {project.title}
           </h3>
-          <div className="flex shrink-0 gap-2">
+          <div className="relative z-30 flex shrink-0 gap-2">
             {project.github ? (
               <a
                 href={project.github}
@@ -204,9 +210,8 @@ export function ProjectCard({
         </div>
 
         <div className="mt-auto pt-6">
-          <Link
-            href={`/projects/${projectSlug(project.title)}`}
-            className="inline-flex w-full items-center justify-between border-t border-white/10 pt-4 font-mono text-xs uppercase tracking-wider text-zinc-400 transition-colors hover:text-white"
+          <div
+            className="inline-flex w-full items-center justify-between border-t border-white/10 pt-4 font-mono text-xs uppercase tracking-wider text-zinc-400 transition-colors group-hover:text-white"
           >
             <span>Inspect project</span>
             <span className="flex size-8 items-center justify-center border border-white/10 transition-all duration-300 group-hover:border-white/30 group-hover:bg-white/10">
@@ -215,7 +220,7 @@ export function ProjectCard({
                 className="transition-transform duration-300 group-hover:rotate-45"
               />
             </span>
-          </Link>
+          </div>
         </div>
       </div>
     </motion.div>
