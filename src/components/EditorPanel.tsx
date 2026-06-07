@@ -27,8 +27,7 @@ export default function EditorPanel({
         className,
       )}
       initial={{ opacity: 0, y: 18 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.25 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.55, ease: "easeOut" }}
     >
       <div className="relative z-10 flex h-10 items-center justify-between border-b border-white/10 bg-black/30 px-3">

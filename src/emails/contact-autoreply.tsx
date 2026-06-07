@@ -1,6 +1,6 @@
-import { Button, Hr, Section, Text } from "@react-email/components";
+import { Button, Section, Text } from "@react-email/components";
 import { PERSONAL_DATA } from "@/db/cv";
-import { colors, EmailShell, SANS } from "./_shell";
+import { AccentBlock, colors, EmailShell, Eyebrow, MONO, SANS } from "./_shell";
 
 export type ContactAutoReplyProps = {
   name: string;
@@ -13,19 +13,20 @@ export default function ContactAutoReply({
   subject,
   message,
 }: ContactAutoReplyProps) {
-  const firstName = name.split(" ")[0] || name;
+  const firstName = name?.split(" ")[0] || name;
 
   return (
     <EmailShell
-      preview={`Thanks for reaching out, ${firstName} — I've received your message.`}
+      preview={`Thanks for reaching out, ${firstName} — I've got your message.`}
       eyebrow={PERSONAL_DATA.headline}
     >
-      <Section style={{ padding: "30px 32px 6px" }}>
+      {/* Greeting ------------------------------------------------------ */}
+      <Section style={{ padding: "10px 4px 0" }}>
         <Text
           style={{
             margin: 0,
-            fontFamily: SANS,
-            fontSize: "21px",
+            fontFamily: MONO,
+            fontSize: "24px",
             fontWeight: 700,
             color: colors.ink,
             lineHeight: "1.3",
@@ -35,52 +36,32 @@ export default function ContactAutoReply({
         </Text>
         <Text
           style={{
-            margin: "12px 0 0",
+            margin: "14px 0 0",
             fontFamily: SANS,
             fontSize: "15px",
             lineHeight: "1.75",
             color: colors.body,
           }}
         >
-          Your message has reached my inbox, and I appreciate you taking the
-          time to write. I read every enquiry personally and will get back to
-          you within{" "}
+          Your message has landed safely in my inbox — thank you for taking the
+          time to write. I read every message myself and I'll get back to you
+          within{" "}
           <strong style={{ color: colors.ink }}>1–2 business days</strong>.
         </Text>
       </Section>
 
       {/* Copy of their message ---------------------------------------- */}
-      <Section style={{ padding: "22px 32px 4px" }}>
-        <Text
-          style={{
-            margin: "0 0 8px",
-            fontFamily: SANS,
-            fontSize: "12px",
-            fontWeight: 700,
-            letterSpacing: "0.06em",
-            textTransform: "uppercase",
-            color: colors.muted,
-          }}
-        >
-          A copy of your message
-        </Text>
-        <div
-          style={{
-            padding: "18px 20px",
-            backgroundColor: colors.surface,
-            border: `1px solid ${colors.border}`,
-            borderLeft: `3px solid ${colors.brand}`,
-            borderRadius: "12px",
-          }}
-        >
+      <Section style={{ padding: "26px 4px 0" }}>
+        <Eyebrow>Here's what you sent</Eyebrow>
+        <AccentBlock>
           {subject?.trim() ? (
             <Text
               style={{
-                margin: "0 0 10px",
-                fontFamily: SANS,
-                fontSize: "14px",
+                margin: "0 0 8px",
+                fontFamily: MONO,
+                fontSize: "15px",
                 fontWeight: 700,
-                color: colors.ink,
+                color: colors.brandText,
               }}
             >
               {subject.trim()}
@@ -98,10 +79,11 @@ export default function ContactAutoReply({
           >
             {message}
           </Text>
-        </div>
+        </AccentBlock>
       </Section>
 
-      <Section style={{ padding: "20px 32px 4px" }}>
+      {/* What happens next -------------------------------------------- */}
+      <Section style={{ padding: "26px 4px 0" }}>
         <Text
           style={{
             margin: 0,
@@ -111,40 +93,36 @@ export default function ContactAutoReply({
             color: colors.body,
           }}
         >
-          While you wait, feel free to explore my recent work and case studies.
-          If your enquiry is time-sensitive, just reply to this email and it
-          will come straight to me.
+          If anything is time-sensitive, just reply to this email and it comes
+          straight to me. In the meantime, feel free to explore my recent work.
         </Text>
       </Section>
 
-      <Section style={{ padding: "22px 32px 4px" }}>
+      {/* CTA ---------------------------------------------------------- */}
+      <Section style={{ padding: "24px 4px 0" }}>
         <Button
           href="https://rohittiwari.me/projects"
           style={{
             display: "inline-block",
-            padding: "13px 26px",
+            padding: "13px 28px",
             backgroundColor: colors.brand,
+            backgroundImage:
+              "linear-gradient(135deg, #22d3ee 0%, #818cf8 50%, #f0abfc 100%)",
             color: colors.onBrand,
-            fontFamily: SANS,
-            fontSize: "14px",
-            fontWeight: 600,
+            fontFamily: MONO,
+            fontSize: "13px",
+            fontWeight: 700,
+            letterSpacing: "0.02em",
             borderRadius: "10px",
             textDecoration: "none",
           }}
         >
-          View my work
+          View my work →
         </Button>
       </Section>
 
-      <Hr
-        style={{
-          margin: "26px 32px 0",
-          border: "none",
-          borderTop: `1px solid ${colors.border}`,
-        }}
-      />
-
-      <Section style={{ padding: "18px 32px 4px" }}>
+      {/* Sign-off ----------------------------------------------------- */}
+      <Section style={{ padding: "28px 4px 0" }}>
         <Text
           style={{
             margin: 0,
@@ -154,12 +132,13 @@ export default function ContactAutoReply({
             color: colors.body,
           }}
         >
-          Warm regards,
+          Talk soon,
           <br />
-          <strong style={{ color: colors.ink }}>{PERSONAL_DATA.name}</strong>
-          <br />
+          <strong style={{ fontFamily: MONO, color: colors.ink }}>
+            {PERSONAL_DATA.name}
+          </strong>{" "}
           <span style={{ color: colors.muted, fontSize: "14px" }}>
-            {PERSONAL_DATA.headline}
+            · {PERSONAL_DATA.headline}
           </span>
         </Text>
       </Section>

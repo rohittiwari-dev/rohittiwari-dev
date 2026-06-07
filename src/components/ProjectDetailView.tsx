@@ -32,13 +32,13 @@ type Project = {
   github?: string;
   demo?: string;
   image?: string;
-  role: string;
-  duration: string;
-  status: string;
-  metrics: { label: string; value: string }[];
-  systemNotes: string[];
-  highlights: { title: string; body: string; icon: string; color: string }[];
-  architecture: { title: string; body: string }[];
+  role?: string;
+  duration?: string;
+  status?: string;
+  metrics?: { label: string; value: string }[];
+  systemNotes?: string[];
+  highlights?: { title: string; body: string; icon: string; color: string }[];
+  architecture?: { title: string; body: string }[];
 };
 
 const lucideIcons: Record<string, React.ElementType> = {
@@ -48,6 +48,7 @@ const lucideIcons: Record<string, React.ElementType> = {
   ShieldCheck,
   Cpu,
   ServerCog,
+  Rocket,
 };
 
 const containerVariants: Variants = {
@@ -104,8 +105,8 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
   );
 }
 
-export default function ProjectDetailView({ project }: { project: any }) {
-  const typedProject = project as Project;
+export default function ProjectDetailView({ project }: { project: Project }) {
+  const typedProject = project;
   const [imageOk, setImageOk] = useState(true);
   const slug = projectSlug(typedProject.title);
 
@@ -401,7 +402,7 @@ export default function ProjectDetailView({ project }: { project: any }) {
                 key={layer.title}
                 className="border border-white/10 bg-black/40 p-6 backdrop-blur-xl transition hover:border-white/20"
               >
-                <span className="font-mono text-xs text-cyan-300">// {layer.title}</span>
+                <span className="font-mono text-xs text-cyan-300">{"// "}{layer.title}</span>
                 <p className="mt-3 text-sm leading-7 text-zinc-400">
                   {layer.body}
                 </p>

@@ -21,7 +21,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { OPEN_SOURCE_PROJECTS, PROJECTS, PROJECTS_PAGE_DATA } from "@/db/cv";
+import {
+  OPEN_SOURCE_PROJECTS,
+  PROJECTS,
+  PROJECTS_PAGE_DATA,
+  SKILLS,
+} from "@/db/cv";
 import { cn } from "@/lib/utils";
 import { CornerPluses } from "@/components/ui/corner-plus";
 
@@ -50,30 +55,32 @@ const itemVariants: Variants = {
   },
 };
 
-// Shared scroll-reveal props for stacked sections.
+// Reveal props for the stacked sections and their grids. These use mount-based
+// `animate` rather than `whileInView`: with the React Compiler enabled, the
+// IntersectionObserver behind `whileInView` can miss its trigger on the initial
+// SSR load when the element is already in (or near) the viewport, leaving
+// content — including the featured project cards — stuck at the `hidden`
+// (opacity: 0) variant until a remount. Animating on mount is reliable.
 const sectionReveal = {
   initial: "hidden" as const,
-  whileInView: "visible" as const,
-  viewport: { once: true, amount: 0.15 },
+  animate: "visible" as const,
   variants: itemVariants,
 };
 
-// Inner grid that staggers its children once scrolled into view.
 const gridReveal = {
   initial: "hidden" as const,
-  whileInView: "visible" as const,
-  viewport: { once: true, amount: 0.1 },
+  animate: "visible" as const,
   variants: containerVariants,
 };
 
 export default function ProjectsPage() {
-  const technologyIndex = Array.from(
-    new Set(PROJECTS.flatMap((project) => project.technologies)),
+  const categoriesIndex = Array.from(
+    new Set(SKILLS.map((skill) => skill.category)),
   );
 
   const getStatValue = (label: string) => {
     if (label === "featured_projects") return PROJECTS.length;
-    if (label === "unique_technologies") return technologyIndex.length;
+    if (label === "categories") return categoriesIndex.length;
     if (label === "open_source_refs") return OPEN_SOURCE_PROJECTS.length;
     return 0;
   };
@@ -118,13 +125,17 @@ export default function ProjectsPage() {
                 key={stat.label}
                 variants={itemVariants}
                 whileHover={{ y: -4 }}
-                transition={{ type: "spring", stiffness: 300, damping: 22 }}
-                className="group flex items-start gap-4 border border-white/10 bg-white/[0.03] p-5 backdrop-blur-xl transition-colors hover:border-white/20 hover:bg-white/[0.05]"
+                transition={{
+                  type: "spring",
+                  stiffness: 300,
+                  damping: 22,
+                }}
+                className="group flex items-start gap-4 border border-white/10 bg-white/3 p-5 backdrop-blur-xl transition-colors hover:border-white/20 hover:bg-white/5"
               >
                 <CornerPluses size={10} strokeWidth={0.75} />
                 <div
                   className={cn(
-                    "grid size-10 place-items-center border border-white/10 bg-black/40 transition-colors group-hover:bg-white/[0.04]",
+                    "grid size-10 place-items-center border border-white/10 bg-black/40 transition-colors group-hover:bg-white/4",
                     stat.color,
                   )}
                 >
@@ -162,13 +173,24 @@ export default function ProjectsPage() {
             {...gridReveal}
             className="mt-2 grid gap-6 lg:grid-cols-2"
           >
-            {PROJECTS.map((project, index) => (
-              <ProjectCard
-                key={project.title}
-                project={project}
-                index={index}
-              />
-            ))}
+            {[...PROJECTS]
+              .sort((a, b) => {
+                const parse = (d: string) => {
+                  // Take the part after " – " (end date) or the whole string
+                  const part = d.includes("–")
+                    ? (d.split("–").pop() ?? d).trim()
+                    : d.trim();
+                  return new Date(part).getTime() || 0;
+                };
+                return parse(b.duration) - parse(a.duration);
+              })
+              .map((project, index) => (
+                <ProjectCard
+                  key={project.title}
+                  project={project}
+                  index={index}
+                />
+              ))}
           </motion.div>
         </EditorPanel>
       </motion.section>
@@ -180,7 +202,7 @@ export default function ProjectsPage() {
           title={PROJECTS_PAGE_DATA.tabs.stack.label}
         >
           <span className="font-mono text-emerald-200/80">
-            {technologyIndex.length} technologies
+            {categoriesIndex.length} categories
           </span>
         </SectionTitle>
         <EditorPanel
@@ -189,21 +211,25 @@ export default function ProjectsPage() {
         >
           <motion.div
             {...gridReveal}
-            className="mt-2 grid gap-3 p-2 sm:grid-cols-2 lg:grid-cols-4"
+            className="mt-2 grid gap-3 p-2 sm:grid-cols-2 lg:grid-cols-3"
           >
-            {technologyIndex.map((tech) => (
+            {categoriesIndex.map((category) => (
               <motion.div
-                key={tech}
+                key={category}
                 variants={itemVariants}
                 whileHover={{ y: -3 }}
-                transition={{ type: "spring", stiffness: 320, damping: 22 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 320,
+                  damping: 22,
+                }}
                 className="group flex items-center gap-3 border border-white/10 bg-black/35 px-4 py-3 font-mono text-sm text-zinc-300 transition-colors hover:border-emerald-300/40 hover:bg-emerald-300/10 hover:text-emerald-100"
               >
                 <Box
                   size={15}
                   className="text-zinc-500 transition group-hover:text-emerald-300"
                 />
-                {tech}
+                {category}
               </motion.div>
             ))}
           </motion.div>

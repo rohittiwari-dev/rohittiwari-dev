@@ -1,4 +1,5 @@
 "use client";
+import { useEffect, useState } from "react";
 
 import {
   ArrowRight,
@@ -19,6 +20,7 @@ import {
 } from "lucide-react";
 import { motion, type Variants } from "motion/react";
 import Link from "next/link";
+
 import HeroTechPills from "@/components/HeroTechPills";
 import { SectionTitle } from "@/components/home/section-title";
 import MagneticElement from "@/components/MagneticElement";
@@ -93,6 +95,15 @@ const heroStats = [
 ];
 
 export default function Home() {
+  const [featuredProjects, setFeaturedProjects] = useState(() =>
+    PROJECTS.slice(0, 3),
+  );
+
+  useEffect(() => {
+    const shuffled = [...PROJECTS].sort(() => Math.random() - 0.5);
+    setFeaturedProjects(shuffled.slice(0, 3));
+  }, []);
+
   return (
     <div className="mx-auto flex w-full max-w-7xl flex-col gap-20 px-4 pb-24 sm:px-8 lg:px-12">
       {/* Hero --------------------------------------------------------------- */}
@@ -146,7 +157,7 @@ export default function Home() {
             {heroStats.map((stat) => (
               <div
                 key={stat.label}
-                className="relative flex flex-col border border-white/10 bg-white/[0.03] px-4 py-2.5"
+                className="relative flex flex-col border border-white/10 bg-white/3 px-4 py-2.5"
               >
                 <CornerPluses
                   size={10}
@@ -185,7 +196,7 @@ export default function Home() {
             <MagneticElement strength={10} className="w-full sm:w-auto">
               <Link
                 href="/contact"
-                className="group relative inline-flex w-full items-center justify-center gap-2 border border-white/15 bg-white/[0.03] px-5 py-3 font-mono text-sm text-zinc-200 transition hover:border-white/30 hover:bg-white/[0.06] sm:w-auto"
+                className="group relative inline-flex w-full items-center justify-center gap-2 border border-white/15 bg-white/3 px-5 py-3 font-mono text-sm text-zinc-200 transition hover:border-white/30 hover:bg-white/6 sm:w-auto"
               >
                 <CornerPluses />
                 <Mail size={16} />
@@ -201,9 +212,9 @@ export default function Home() {
         {/* Open, floating stack orbit */}
         <motion.div
           variants={itemVariants}
-          className="relative flex min-h-[420px] w-full items-center justify-center sm:min-h-[500px]"
+          className="relative flex min-h-105 w-full items-center justify-center sm:min-h-125"
         >
-          <div className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-400/10 via-fuchsia-400/10 to-emerald-400/10 blur-3xl" />
+          <div className="absolute inset-0 rounded-full bg-linear-to-r from-cyan-400/10 via-fuchsia-400/10 to-emerald-400/10 blur-3xl" />
           <div className="scale-125 md:scale-[1.55]">
             <IconCloud images={HOMEPAGE_DATA.heroStackIcons} />
           </div>
@@ -238,7 +249,7 @@ export default function Home() {
                   className="text-cyan-300/60"
                 />
                 <CardHeader>
-                  <div className="mb-2 grid size-10 place-items-center border border-white/10 bg-white/[0.04] text-cyan-200">
+                  <div className="mb-2 grid size-10 place-items-center border border-white/10 bg-white/4 text-cyan-200">
                     <Icon size={18} />
                   </div>
                   <CardTitle className="text-lg text-white">
@@ -274,7 +285,7 @@ export default function Home() {
             return (
               <div
                 key={`${stat.label}-${stat.value}`}
-                className="relative overflow-visible group flex items-start gap-3 border border-white/10 bg-white/[0.03] p-4 transition hover:border-white/20 hover:bg-white/[0.05]"
+                className="relative overflow-visible group flex items-start gap-3 border border-white/10 bg-white/3 p-4 transition hover:border-white/20 hover:bg-white/5"
               >
                 <CornerPluses
                   size={10}
@@ -302,8 +313,7 @@ export default function Home() {
       <motion.section
         variants={containerVariants}
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.15 }}
+        animate="visible"
         className="flex flex-col gap-8"
       >
         <SectionTitle
@@ -322,7 +332,7 @@ export default function Home() {
           </Link>
         </SectionTitle>
         <div className="grid gap-5">
-          {PROJECTS.map((project, index) => (
+          {featuredProjects.map((project, index) => (
             <ProjectCard
               key={project.title}
               project={project}

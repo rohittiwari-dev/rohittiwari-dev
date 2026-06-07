@@ -425,49 +425,51 @@ export default function AboutPage() {
           {ABOUT_PAGE_DATA.certifications.label} — {CERTIFICATES.length} logged
         </SectionLabel>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {CERTIFICATES.map((item) => (
-            <Card
-              key={item.title}
-              size="sm"
-              className="group/cert relative overflow-visible border-white/10 bg-black/40 text-zinc-100 backdrop-blur-xl transition hover:border-amber-300/30"
-            >
-              <CornerPluses
-                size={10}
-                strokeWidth={0.75}
-                className="text-cyan-300/60"
-              />
-              <CardHeader>
-                <div className="flex items-start gap-3">
-                  <div className="grid size-9 shrink-0 place-items-center border border-amber-300/20 bg-amber-300/10 text-amber-300">
-                    <Award size={16} />
+          {[...CERTIFICATES]
+            .sort((a, b) => b.date.localeCompare(a.date))
+            .map((item) => (
+              <Card
+                key={item.title}
+                size="sm"
+                className="group/cert relative overflow-visible border-white/10 bg-black/40 text-zinc-100 backdrop-blur-xl transition hover:border-amber-300/30"
+              >
+                <CornerPluses
+                  size={10}
+                  strokeWidth={0.75}
+                  className="text-cyan-300/60"
+                />
+                <CardHeader>
+                  <div className="flex items-start gap-3">
+                    <div className="grid size-9 shrink-0 place-items-center border border-amber-300/20 bg-amber-300/10 text-amber-300">
+                      <Award size={16} />
+                    </div>
+                    <div className="min-w-0">
+                      <CardTitle className="text-sm leading-snug text-white">
+                        {item.url ? (
+                          <a
+                            href={item.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-start gap-1.5 transition-colors hover:text-amber-200 hover:underline"
+                          >
+                            {item.title}
+                            <ExternalLink
+                              size={12}
+                              className="mt-0.5 shrink-0 opacity-60"
+                            />
+                          </a>
+                        ) : (
+                          item.title
+                        )}
+                      </CardTitle>
+                      <CardDescription className="mt-1.5 font-mono text-[11px] text-zinc-500">
+                        {item.institution} · {new Date(item.date).getFullYear()}
+                      </CardDescription>
+                    </div>
                   </div>
-                  <div className="min-w-0">
-                    <CardTitle className="text-sm leading-snug text-white">
-                      {item.url ? (
-                        <a
-                          href={item.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-start gap-1.5 transition-colors hover:text-amber-200 hover:underline"
-                        >
-                          {item.title}
-                          <ExternalLink
-                            size={12}
-                            className="mt-0.5 shrink-0 opacity-60"
-                          />
-                        </a>
-                      ) : (
-                        item.title
-                      )}
-                    </CardTitle>
-                    <CardDescription className="mt-1.5 font-mono text-[11px] text-zinc-500">
-                      {item.institution} · {new Date(item.date).getFullYear()}
-                    </CardDescription>
-                  </div>
-                </div>
-              </CardHeader>
-            </Card>
-          ))}
+                </CardHeader>
+              </Card>
+            ))}
         </div>
       </motion.section>
 

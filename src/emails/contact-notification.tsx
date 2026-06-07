@@ -1,5 +1,12 @@
-import { Button, Hr, Link, Section, Text } from "@react-email/components";
-import { colors, EmailShell, SANS } from "./_shell";
+import {
+  Button,
+  Column,
+  Link,
+  Row,
+  Section,
+  Text,
+} from "@react-email/components";
+import { AccentBlock, colors, EmailShell, Eyebrow, MONO, SANS } from "./_shell";
 
 export type ContactNotificationProps = {
   name: string;
@@ -28,82 +35,50 @@ export default function ContactNotification({
 
   return (
     <EmailShell
-      preview={`New enquiry from ${name}${subject ? ` — ${subject}` : ""}`}
+      preview={`New message from ${name}${subject ? ` — ${subject}` : ""}`}
       eyebrow="New enquiry · contact form"
     >
-      <Section style={{ padding: "30px 32px 6px" }}>
+      {/* Headline ------------------------------------------------------ */}
+      <Section style={{ padding: "10px 4px 0" }}>
         <Text
           style={{
             margin: 0,
-            fontFamily: SANS,
-            fontSize: "21px",
+            fontFamily: MONO,
+            fontSize: "24px",
             fontWeight: 700,
             color: colors.ink,
             lineHeight: "1.3",
           }}
         >
-          You have a new enquiry
+          New message from {firstName}
         </Text>
         <Text
           style={{
-            margin: "8px 0 0",
+            margin: "14px 0 0",
             fontFamily: SANS,
             fontSize: "15px",
-            lineHeight: "1.65",
+            lineHeight: "1.75",
             color: colors.body,
           }}
         >
-          {firstName} reached out through your portfolio contact form. Their
-          details and message are below.
+          Someone just reached out through your portfolio contact form. Here are
+          their details and what they said.
         </Text>
       </Section>
 
       {/* Contact details ---------------------------------------------- */}
-      <Section style={{ padding: "20px 32px 4px" }}>
-        <table
-          width="100%"
-          cellPadding={0}
-          cellSpacing={0}
-          role="presentation"
-          style={{
-            backgroundColor: colors.surface,
-            border: `1px solid ${colors.border}`,
-            borderRadius: "12px",
-          }}
-        >
-          <tbody>
-            <DetailRow label="Name" value={name} />
-            <DetailRow label="Email" value={email} href={`mailto:${email}`} />
-            <DetailRow label="Subject" value={subject?.trim() || "—"} />
-            <DetailRow label="Received" value={stamp} last />
-          </tbody>
-        </table>
+      <Section style={{ padding: "26px 4px 0" }}>
+        <Eyebrow>Contact details</Eyebrow>
+        <DetailRow label="name" value={name} />
+        <DetailRow label="email" value={email} href={`mailto:${email}`} />
+        <DetailRow label="subject" value={subject?.trim() || "—"} />
+        <DetailRow label="received" value={stamp} last />
       </Section>
 
       {/* Message ------------------------------------------------------- */}
-      <Section style={{ padding: "20px 32px 4px" }}>
-        <Text
-          style={{
-            margin: "0 0 8px",
-            fontFamily: SANS,
-            fontSize: "12px",
-            fontWeight: 700,
-            letterSpacing: "0.06em",
-            textTransform: "uppercase",
-            color: colors.muted,
-          }}
-        >
-          Message
-        </Text>
-        <div
-          style={{
-            padding: "18px 20px",
-            backgroundColor: colors.card,
-            border: `1px solid ${colors.border}`,
-            borderLeft: `3px solid ${colors.brand}`,
-            borderRadius: "12px",
-          }}
-        >
+      <Section style={{ padding: "26px 4px 0" }}>
+        <Eyebrow>Message</Eyebrow>
+        <AccentBlock>
           <Text
             style={{
               margin: 0,
@@ -116,51 +91,46 @@ export default function ContactNotification({
           >
             {message}
           </Text>
-        </div>
+        </AccentBlock>
       </Section>
 
       {/* Reply CTA ----------------------------------------------------- */}
-      <Section style={{ padding: "26px 32px 4px" }}>
+      <Section style={{ padding: "26px 4px 0" }}>
         <Button
           href={`mailto:${email}?subject=${encodeURIComponent(replySubject)}`}
           style={{
             display: "inline-block",
-            padding: "13px 26px",
+            padding: "13px 28px",
             backgroundColor: colors.brand,
+            backgroundImage:
+              "linear-gradient(135deg, #22d3ee 0%, #818cf8 50%, #f0abfc 100%)",
             color: colors.onBrand,
-            fontFamily: SANS,
-            fontSize: "14px",
-            fontWeight: 600,
+            fontFamily: MONO,
+            fontSize: "13px",
+            fontWeight: 700,
+            letterSpacing: "0.02em",
             borderRadius: "10px",
             textDecoration: "none",
           }}
         >
-          Reply to {firstName}
+          Reply to {firstName} →
         </Button>
-      </Section>
-
-      <Hr
-        style={{
-          margin: "26px 32px 0",
-          border: "none",
-          borderTop: `1px solid ${colors.border}`,
-        }}
-      />
-
-      <Section style={{ padding: "14px 32px 4px" }}>
         <Text
           style={{
-            margin: 0,
-            fontFamily: SANS,
+            margin: "14px 0 0",
+            fontFamily: MONO,
             fontSize: "12px",
             color: colors.faint,
             lineHeight: "1.6",
           }}
         >
-          Tip: replying to this email reaches{" "}
+          Tip: replying to this email also reaches{" "}
           <Link
             href={`mailto:${email}`}
-            style={{ color: colors.muted, textDecoration: "underline" }}
+            style={{
+              color: colors.muted,
+              textDecoration: "underline",
+            }}
           >
             {email}
           </Link>{" "}
@@ -182,45 +152,49 @@ function DetailRow({
   href?: string;
   last?: boolean;
 }) {
-  const cellBorder = last ? "none" : `1px solid ${colors.border}`;
+  const border = last ? "none" : `1px solid ${colors.border}`;
   return (
-    <tr>
-      <td
+    <Row>
+      <Column
         style={{
           width: "92px",
-          padding: "13px 0 13px 18px",
+          padding: "11px 0",
           verticalAlign: "top",
-          borderBottom: cellBorder,
-          fontFamily: SANS,
+          borderBottom: border,
+          fontFamily: MONO,
           fontSize: "13px",
           color: colors.muted,
         }}
       >
         {label}
-      </td>
-      <td
+      </Column>
+      <Column
         style={{
-          padding: "13px 18px 13px 10px",
+          padding: "11px 0 11px 14px",
           verticalAlign: "top",
-          borderBottom: cellBorder,
-          fontFamily: SANS,
+          borderBottom: border,
+          fontFamily: MONO,
           fontSize: "14px",
           fontWeight: 600,
           color: colors.ink,
+          wordBreak: "break-word",
         }}
       >
         {href ? (
           <Link
             href={href}
-            style={{ color: colors.brandDark, textDecoration: "none" }}
+            style={{
+              color: colors.brandText,
+              textDecoration: "none",
+            }}
           >
             {value}
           </Link>
         ) : (
           value
         )}
-      </td>
-    </tr>
+      </Column>
+    </Row>
   );
 }
 
