@@ -42,7 +42,7 @@ import {
   SKILLS,
   SoftSkills,
 } from "@/db/cv";
-import { formatYearRange } from "@/lib/portfolio";
+import { formatYearRange, formatYearsCount, totalYears } from "@/lib/portfolio";
 
 const itemVariants: Variants = {
   hidden: { opacity: 0, y: 18 },
@@ -88,7 +88,11 @@ const educationTimeline: TimelineEntry[] = EDUCATION.map((item) => ({
   location: item.location,
   start_date: item.start_date,
   end_date: item.end_date,
+  description: item.description,
 })).sort(byNewest);
+
+const experienceYears = formatYearsCount(totalYears(EXPERIENCE));
+const educationYears = formatYearsCount(totalYears(EDUCATION));
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
@@ -351,7 +355,9 @@ export default function AboutPage() {
         className="grid gap-x-10 gap-y-12 lg:grid-cols-2"
       >
         <div className="space-y-6">
-          <SectionLabel>{ABOUT_PAGE_DATA.timelines.experience}</SectionLabel>
+          <SectionLabel>
+            {ABOUT_PAGE_DATA.timelines.experience} — {experienceYears}
+          </SectionLabel>
           <Timeline
             entries={experienceTimeline}
             accent="text-cyan-300"
@@ -360,7 +366,9 @@ export default function AboutPage() {
         </div>
 
         <div className="space-y-6">
-          <SectionLabel>{ABOUT_PAGE_DATA.timelines.education}</SectionLabel>
+          <SectionLabel>
+            {ABOUT_PAGE_DATA.timelines.education} — {educationYears}
+          </SectionLabel>
           <Timeline
             entries={educationTimeline}
             accent="text-emerald-300"
@@ -405,74 +413,87 @@ export default function AboutPage() {
         </EditorPanel>
       </motion.section>
 
-      {/* Certificates + Interests ------------------------------------------- */}
+      {/* Certificates ------------------------------------------------------- */}
       <motion.section
         variants={itemVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.15 }}
-        className="grid gap-x-10 gap-y-12 lg:grid-cols-2"
+        className="space-y-6"
       >
-        <div className="space-y-6">
-          <SectionLabel>{ABOUT_PAGE_DATA.certifications.label}</SectionLabel>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {CERTIFICATES.map((item) => (
-              <Card
-                key={item.title}
-                className="relative overflow-visible border-white/10 bg-black/40 text-zinc-100 backdrop-blur-xl"
-              >
-                <CornerPluses
-                  size={10}
-                  strokeWidth={0.75}
-                  className="text-cyan-300/60"
-                />
-                <CardHeader>
-                  <div className="flex items-start gap-3">
-                    <Award size={22} className="mt-1 shrink-0 text-amber-300" />
-                    <div>
-                      <CardTitle className="text-base text-white">
-                        {item.url ? (
-                          <a
-                            href={item.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1.5 hover:text-amber-200 hover:underline transition-colors"
-                          >
-                            {item.title}
-                            <ExternalLink size={13} className="opacity-60" />
-                          </a>
-                        ) : (
-                          item.title
-                        )}
-                      </CardTitle>
-                      <CardDescription className="mt-1 text-zinc-400">
-                        {item.institution} / {new Date(item.date).getFullYear()}
-                      </CardDescription>
-                    </div>
+        <SectionLabel>
+          {ABOUT_PAGE_DATA.certifications.label} — {CERTIFICATES.length} logged
+        </SectionLabel>
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {CERTIFICATES.map((item) => (
+            <Card
+              key={item.title}
+              size="sm"
+              className="group/cert relative overflow-visible border-white/10 bg-black/40 text-zinc-100 backdrop-blur-xl transition hover:border-amber-300/30"
+            >
+              <CornerPluses
+                size={10}
+                strokeWidth={0.75}
+                className="text-cyan-300/60"
+              />
+              <CardHeader>
+                <div className="flex items-start gap-3">
+                  <div className="grid size-9 shrink-0 place-items-center border border-amber-300/20 bg-amber-300/10 text-amber-300">
+                    <Award size={16} />
                   </div>
-                </CardHeader>
-              </Card>
-            ))}
-          </div>
+                  <div className="min-w-0">
+                    <CardTitle className="text-sm leading-snug text-white">
+                      {item.url ? (
+                        <a
+                          href={item.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-start gap-1.5 transition-colors hover:text-amber-200 hover:underline"
+                        >
+                          {item.title}
+                          <ExternalLink
+                            size={12}
+                            className="mt-0.5 shrink-0 opacity-60"
+                          />
+                        </a>
+                      ) : (
+                        item.title
+                      )}
+                    </CardTitle>
+                    <CardDescription className="mt-1.5 font-mono text-[11px] text-zinc-500">
+                      {item.institution} · {new Date(item.date).getFullYear()}
+                    </CardDescription>
+                  </div>
+                </div>
+              </CardHeader>
+            </Card>
+          ))}
         </div>
+      </motion.section>
 
-        <div className="space-y-6">
-          <SectionLabel>{ABOUT_PAGE_DATA.interests.label}</SectionLabel>
-          <div className="glass-surface flex flex-col gap-4 p-6">
-            <div className="flex items-center gap-2 font-mono text-xs text-fuchsia-200">
-              <Heart size={14} />
-              {ABOUT_PAGE_DATA.interests.subLabel}
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {Interest.map((interest) => (
-                <span
-                  key={interest}
-                  className="border border-fuchsia-300/20 bg-fuchsia-300/10 px-3 py-2 font-mono text-xs text-fuchsia-100"
-                >
-                  {interest}
-                </span>
-              ))}
-            </div>
+      {/* Interests ---------------------------------------------------------- */}
+      <motion.section
+        variants={itemVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.15 }}
+        className="space-y-6"
+      >
+        <SectionLabel>{ABOUT_PAGE_DATA.interests.label}</SectionLabel>
+        <div className="glass-surface flex flex-col gap-4 p-6">
+          <div className="flex items-center gap-2 font-mono text-xs text-fuchsia-200">
+            <Heart size={14} />
+            {ABOUT_PAGE_DATA.interests.subLabel}
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {Interest.map((interest) => (
+              <span
+                key={interest}
+                className="border border-fuchsia-300/20 bg-fuchsia-300/10 px-3 py-2 font-mono text-xs text-fuchsia-100"
+              >
+                {interest}
+              </span>
+            ))}
           </div>
         </div>
       </motion.section>

@@ -1,14 +1,26 @@
 export const CERTIFICATES = [
   {
-    title: "AWS Certified Solutions Architect - Associate",
-    institution: "Amazon Web Services",
-    date: "2022-01-01",
-    url: "https://aws.amazon.com/certification/certified-solutions-architect-associate/",
+    title: "HTML, CSS, and JavaScript for Web Developers",
+    institution: "Coursera",
+    date: "2023-01-01",
+    url: "",
   },
   {
-    title: "AWS Certified Developer - Associate",
-    institution: "Amazon Web Services",
-    date: "2022-01-01",
-    url: "https://aws.amazon.com/certification/certified-developer-associate/",
+    title: "Business Statistics",
+    institution: "Coursera",
+    date: "2023-01-01",
+    url: "",
+  },
+  {
+    title: "Programming for Everybody (Getting Started with Python)",
+    institution: "Coursera",
+    date: "2023-01-01",
+    url: "",
+  },
+  {
+    title: "Python Data Structures",
+    institution: "Coursera",
+    date: "2023-01-01",
+    url: "",
   },
 ];

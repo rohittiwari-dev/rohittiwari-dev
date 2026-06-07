@@ -9,10 +9,12 @@ import {
   IconBrandX,
 } from "@tabler/icons-react";
 import {
+  AlertCircle,
   ArrowRight,
   Check,
   CheckCircle2,
   Clipboard,
+  Loader2,
   Mail,
   MapPin,
   Phone,
@@ -140,13 +142,14 @@ type FormErrors = Partial<Record<keyof FormState, string>>;
 
 const emptyForm: FormState = { name: "", email: "", subject: "", message: "" };
 
+type Status = "idle" | "sending" | "sent" | "error";
+
 export default function ContactPage() {
   const [copied, setCopied] = useState<string | null>(null);
   const [form, setForm] = useState<FormState>(emptyForm);
   const [errors, setErrors] = useState<FormErrors>({});
-  const [sent, setSent] = useState(false);
-
-  const canEmail = has(data.email);
+  const [status, setStatus] = useState<Status>("idle");
+  const [serverError, setServerError] = useState<string | null>(null);
 
   const copyValue = async (label: string, value: string) => {
     try {
@@ -176,10 +179,11 @@ export default function ContactPage() {
     return next;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setServerError(null);
     const found = validate();
-    if (Object.keys(found).length > 0 || !canEmail) {
+    if (Object.keys(found).length > 0) {
       // Move focus to the first field that failed validation.
       const firstInvalid = (["name", "email", "message"] as const).find(
         (key) => found[key],
@@ -187,15 +191,33 @@ export default function ContactPage() {
       if (firstInvalid) document.getElementById(firstInvalid)?.focus();
       return;
     }
-    const subject = encodeURIComponent(
-      form.subject.trim() || `Project inquiry from ${form.name}`,
-    );
-    const body = encodeURIComponent(
-      `Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`,
-    );
-    window.location.href = `mailto:${data.email}?subject=${subject}&body=${body}`;
-    setSent(true);
-    window.setTimeout(() => setSent(false), 5000);
+
+    setStatus("sending");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      const payload = (await res.json().catch(() => ({}))) as {
+        error?: string;
+        fieldErrors?: FormErrors;
+      };
+
+      if (!res.ok) {
+        if (payload.fieldErrors) setErrors(payload.fieldErrors);
+        setServerError(payload.error ?? "Couldn't send your message.");
+        setStatus("error");
+        return;
+      }
+
+      setStatus("sent");
+      setForm(emptyForm);
+      window.setTimeout(() => setStatus("idle"), 6000);
+    } catch {
+      setServerError("Network error — check your connection and try again.");
+      setStatus("error");
+    }
   };
 
   return (
@@ -236,14 +258,25 @@ export default function ContactPage() {
         {/* Compose form */}
         <EditorPanel filename="message.compose" status="draft  unsent">
           <form onSubmit={handleSubmit} noValidate className="space-y-5">
-            {sent ? (
+            {status === "sent" ? (
               <div
                 role="status"
                 aria-live="polite"
                 className="flex items-center gap-2 border border-emerald-300/30 bg-emerald-300/10 px-4 py-3 font-mono text-xs text-emerald-100"
               >
                 <CheckCircle2 size={15} />
-                Opening your mail client with the message prefilled…
+                Message sent — I&rsquo;ll get back to you soon. Thanks for
+                reaching out!
+              </div>
+            ) : null}
+            {status === "error" && serverError ? (
+              <div
+                role="alert"
+                aria-live="assertive"
+                className="flex items-center gap-2 border border-rose-400/30 bg-rose-400/10 px-4 py-3 font-mono text-xs text-rose-100"
+              >
+                <AlertCircle size={15} />
+                {serverError}
               </div>
             ) : null}
 
@@ -353,18 +386,27 @@ export default function ContactPage() {
             <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
               <button
                 type="submit"
-                disabled={!canEmail}
+                disabled={status === "sending"}
                 className="group inline-flex w-full items-center justify-center gap-2 border border-cyan-300/40 bg-cyan-300/10 px-5 py-3 font-mono text-sm text-cyan-50 transition hover:bg-cyan-300/20 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
               >
-                <Send size={16} />
-                send message
-                <ArrowRight
-                  size={16}
-                  className="transition group-hover:translate-x-1"
-                />
+                {status === "sending" ? (
+                  <>
+                    <Loader2 size={16} className="animate-spin" />
+                    sending…
+                  </>
+                ) : (
+                  <>
+                    <Send size={16} />
+                    send message
+                    <ArrowRight
+                      size={16}
+                      className="transition group-hover:translate-x-1"
+                    />
+                  </>
+                )}
               </button>
               <p className="font-mono text-[10px] text-zinc-600">
-                opens your email client — no data is stored
+                sent straight to my inbox — I usually reply within a day
               </p>
             </div>
           </form>

@@ -17,44 +17,49 @@ const navLinks = [
   { href: "/contact", label: "contact.env" },
 ];
 
+// Treat the data as optionally-present so removed/blank fields are handled.
+const data = PERSONAL_DATA as unknown as Record<string, string | undefined>;
+const hasLink = (value?: string) => Boolean(value?.trim());
+
+// Only socials with a real link are kept — empty/missing ones are hidden.
 const socials = [
   {
-    href: PERSONAL_DATA.github,
+    href: data.github,
     label: "GitHub",
     icon: IconBrandGithub,
     hover: "hover:border-white/30 hover:text-white",
   },
   {
-    href: PERSONAL_DATA.linkedin,
+    href: data.linkedin,
     label: "LinkedIn",
     icon: IconBrandLinkedin,
     hover: "hover:border-sky-400/40 hover:text-sky-400",
   },
   {
-    href: PERSONAL_DATA.twitter,
+    href: data.twitter,
     label: "X",
     icon: IconBrandX,
     hover: "hover:border-zinc-300/40 hover:text-zinc-100",
   },
   {
-    href: PERSONAL_DATA.telegram,
+    href: data.telegram,
     label: "Telegram",
     icon: IconBrandTelegram,
     hover: "hover:border-cyan-300/40 hover:text-cyan-300",
   },
   {
-    href: PERSONAL_DATA.whatsapp,
+    href: data.whatsapp,
     label: "WhatsApp",
     icon: IconBrandWhatsapp,
     hover: "hover:border-emerald-300/40 hover:text-emerald-300",
   },
   {
-    href: PERSONAL_DATA.instagram,
+    href: data.instagram,
     label: "Instagram",
     icon: IconBrandInstagram,
     hover: "hover:border-fuchsia-300/40 hover:text-fuchsia-300",
   },
-];
+].filter((social) => hasLink(social.href));
 
 export function Footer() {
   return (
@@ -140,23 +145,25 @@ export function Footer() {
             {PERSONAL_DATA.location}
           </div>
 
-          <div className="mt-1 flex flex-wrap gap-2">
-            {socials.map((social) => {
-              const Icon = social.icon;
-              return (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={social.label}
-                  className={`flex size-9 items-center justify-center border border-white/10 bg-white/[0.03] text-zinc-400 transition-colors ${social.hover}`}
-                >
-                  <Icon size={17} />
-                </a>
-              );
-            })}
-          </div>
+          {socials.length > 0 ? (
+            <div className="mt-1 flex flex-wrap gap-2">
+              {socials.map((social) => {
+                const Icon = social.icon;
+                return (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={social.label}
+                    className={`flex size-9 items-center justify-center border border-white/10 bg-white/[0.03] text-zinc-400 transition-colors ${social.hover}`}
+                  >
+                    <Icon size={17} />
+                  </a>
+                );
+              })}
+            </div>
+          ) : null}
         </div>
       </div>
 

@@ -12,20 +12,15 @@ export const PERSONAL_DATA = {
     "Passionate about building scalable, efficient, and user-centric solutions.",
     "I'm currently looking for opportunities to apply my technical skills and contribute to innovative projects.",
   ],
-  email: "[EMAIL_ADDRESS]",
-  phone: "1234567890",
-  linkedin:
-    "https://www.linkedin.com/in/rohit-tiwari-a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8",
-  github: "https://github.com/rohittiwari",
+  email: "rohittiwari.ran@gmail.com",
+  linkedin: "https://www.linkedin.com/in/dev24-tiwari",
+  github: "https://github.com/rohittiwari-dev",
   // Drop your PDF at `public/resume.pdf` (or change this path). Leave empty
   // to hide every "download résumé" button automatically.
-  resume: "/resume.pdf",
-  location: "Dhaka, Bangladesh",
-  address: "Kathmandu, Nepal",
-  telegram: "https://t.me/rohittiwari",
-  whatsapp: "https://wa.me/1234567890",
-  instagram: "https://instagram.com/rohittiwari",
-  twitter: "https://twitter.com/rohittiwari",
+  resume:
+    "https://drive.google.com/file/d/1OgtnMFLg-AspXDvTZjsw2Yqe7SMcVCPR/view",
+  location: "Ranchi, Jharkhand, India",
+  twitter: "https://x.com/rohittiwari_dev",
   stackStats,
   tech_stack,
   typewriter: [

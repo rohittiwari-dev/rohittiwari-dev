@@ -33,7 +33,15 @@ import {
 } from "@/components/ui/card";
 import { CornerPluses } from "@/components/ui/corner-plus";
 import { IconCloud } from "@/components/ui/icon-cloud";
-import { focusAreas, HOMEPAGE_DATA, PERSONAL_DATA, PROJECTS } from "@/db/cv";
+import {
+  EDUCATION,
+  EXPERIENCE,
+  focusAreas,
+  HOMEPAGE_DATA,
+  PERSONAL_DATA,
+  PROJECTS,
+} from "@/db/cv";
+import { formatYearsCount, totalYears } from "@/lib/portfolio";
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -70,6 +78,19 @@ const lucideIcons: Record<string, React.ElementType> = {
 };
 
 // Definitions moved to db/homepage.ts
+
+const heroStats = [
+  {
+    value: formatYearsCount(totalYears(EXPERIENCE)),
+    label: "experience",
+    accent: "text-cyan-300",
+  },
+  {
+    value: formatYearsCount(totalYears(EDUCATION)),
+    label: "education",
+    accent: "text-emerald-300",
+  },
+];
 
 export default function Home() {
   return (
@@ -120,6 +141,29 @@ export default function Home() {
             {PERSONAL_DATA.bio}
             {HOMEPAGE_DATA.bioSuffix}
           </p>
+
+          <div className="flex flex-wrap gap-3">
+            {heroStats.map((stat) => (
+              <div
+                key={stat.label}
+                className="relative flex flex-col border border-white/10 bg-white/[0.03] px-4 py-2.5"
+              >
+                <CornerPluses
+                  size={10}
+                  strokeWidth={0.75}
+                  className="text-cyan-300/60"
+                />
+                <span
+                  className={`text-xl font-black leading-none ${stat.accent}`}
+                >
+                  {stat.value}
+                </span>
+                <span className="mt-1.5 font-mono text-[10px] uppercase tracking-wider text-zinc-500">
+                  {stat.label}
+                </span>
+              </div>
+            ))}
+          </div>
 
           <HeroTechPills tags={HOMEPAGE_DATA.heroPills} />
 

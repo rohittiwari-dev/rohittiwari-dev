@@ -1,7 +1,7 @@
 export const aboutParagraphs = [
-  "I build full-stack products with a systems mindset: typed frontends, reliable APIs, data layers that can evolve, and deployment paths that are easy to operate.",
-  "My strongest work sits around React and Next.js interfaces, Node/Nest/Express backends, PostgreSQL and MongoDB data models, cloud infrastructure, and AI/RAG integrations.",
-  "I like portfolio interfaces that feel usable rather than decorative, so this site is shaped like an editor workspace with panels, commands, status lines, and scan-friendly code typography.",
+  "Results-driven Full Stack Developer with 3+ years of hands-on experience designing and delivering scalable, high-performance software solutions — from real-time IoT systems like OCPP-based EV Charging Management Systems to mental healthcare platforms serving 7000+ users.",
+  "Experienced across the full stack with React, Next.js, Node.js, React Native, and Spring Boot microservices. I build robust backend systems, efficient RESTful APIs, and real-time communication layers using WebSocket and Redis that support high concurrency at scale.",
+  "Currently advancing expertise in Generative AI and modern SaaS architecture, with a focus on integrating AI-driven features, automation workflows, and intelligent systems into production-ready applications.",
 ];
 
 export const operatingPrinciples = [
@@ -24,22 +24,22 @@ export const ABOUT_PAGE_DATA = {
   profileModules: [
     {
       label: "frontend",
-      value: "React, Next.js, animated interfaces",
+      value: "React, Next.js, React Native, animated interfaces",
       icon: "Code2",
     },
     {
       label: "backend",
-      value: "Node, Nest, Express, APIs, queues",
+      value: "Node, NestJS, Spring Boot, REST APIs, WebSocket",
       icon: "Workflow",
     },
     {
       label: "data",
-      value: "PostgreSQL, MongoDB, Redis, RAG",
+      value: "PostgreSQL, MongoDB, Redis, Mongoose ORM",
       icon: "Cpu",
     },
     {
       label: "thinking",
-      value: "product clarity, system design, delivery",
+      value: "system design, DSA & CP, clean architecture, GenAI",
       icon: "Brain",
     },
   ],
