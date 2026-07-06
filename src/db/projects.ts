@@ -8,7 +8,7 @@ export const PROJECTS = [
     demo: "https://www.npmjs.com/package/mr-geoip",
     image: "/projects/mr-geoip.png",
     role: "Creator & Maintainer",
-    duration: "2026",
+    duration: "July 2026",
     status: "Published on npm",
     systemNotes: [
       "Sub-millisecond in-memory lookups with a configurable LRU cache.",
@@ -60,7 +60,7 @@ export const PROJECTS = [
     demo: "https://www.npmjs.com/package/mr-email-checker",
     image: "/projects/mr-email-checker.png",
     role: "Creator & Maintainer",
-    duration: "2026",
+    duration: "June 2026",
     status: "Published on npm",
     systemNotes: [
       "Zero runtime dependencies with dual ESM + CJS builds.",
@@ -119,7 +119,7 @@ export const PROJECTS = [
     demo: "https://oqronkit.rohittiwari.me/",
     image: "/projects/oqronkit.png",
     role: "Creator & Maintainer",
-    duration: "2026",
+    duration: "May 2026",
     status: "Published on npm",
     systemNotes: [
       "Built for production from day one with one cohesive TypeScript engine.",
