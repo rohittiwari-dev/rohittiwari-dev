@@ -4,7 +4,10 @@ import { motion } from "motion/react";
 
 export default function AuroraBackground() {
   return (
-    <div className="fixed inset-0 overflow-hidden pointer-events-none" style={{ zIndex: 0 }}>
+    <div
+      className="fixed inset-0 overflow-hidden pointer-events-none"
+      style={{ zIndex: 0 }}
+    >
       <div className="absolute inset-0 bg-[#020305]" />
 
       <motion.div
@@ -33,7 +36,8 @@ export default function AuroraBackground() {
           backgroundImage:
             "linear-gradient(rgba(255,255,255,0.18) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.18) 1px, transparent 1px)",
           backgroundSize: "72px 72px",
-          maskImage: "linear-gradient(to bottom, transparent, black 15%, black 80%, transparent)",
+          maskImage:
+            "linear-gradient(to bottom, transparent, black 15%, black 80%, transparent)",
         }}
       />
 

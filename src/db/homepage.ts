@@ -36,7 +36,8 @@ export const HOMEPAGE_DATA = {
     "https://cdn.simpleicons.org/figma/rose",
     "https://cdn.simpleicons.org/javascript/green",
   ],
-  bioSuffix: " I turn product ideas into fast, typed, and deployable web systems with a backend-first sense for reliability.",
+  bioSuffix:
+    " I turn product ideas into fast, typed, and deployable web systems with a backend-first sense for reliability.",
   sections: {
     focus: {
       kicker: "focus // what-i-build",

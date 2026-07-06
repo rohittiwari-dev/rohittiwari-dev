@@ -113,14 +113,19 @@ export default function Home() {
         animate="visible"
         variants={containerVariants}
       >
-        <motion.div variants={itemVariants} className="flex flex-col gap-6">
-          <div className="glass-surface flex w-fit items-center gap-3 rounded-full px-4 py-2 font-mono text-xs text-emerald-200">
-            <span className="relative flex size-2.5">
-              <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-300 opacity-70" />
-              <span className="relative inline-flex size-2.5 rounded-full bg-emerald-300" />
+        <motion.div
+          variants={itemVariants}
+          className="flex flex-col w-full items-center text-center lg:items-start lg:text-left gap-6"
+        >
+          <div className="glass-surface flex w-full flex-col justify-center lg:justify-start lg:flex-row items-center gap-3 rounded-md lg:rounded-full px-4 py-2 font-mono text-[0.7rem] lg:text-xs text-emerald-200">
+            <span className="flex-row flex items-center gap-2 text-emerald-300">
+              <span className="relative flex size-2.5">
+                <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-300 opacity-70" />
+                <span className="relative inline-flex size-2.5 rounded-full bg-emerald-300" />
+              </span>
+              <span>available-for-new-builds</span>
             </span>
-            available-for-new-builds
-            <span className="text-zinc-600">·</span>
+            <span className="text-zinc-600 hidden lg:flex">·</span>
             <span className="inline-flex items-center gap-1 text-zinc-400">
               <MapPin size={12} />
               {PERSONAL_DATA.location}
@@ -140,7 +145,7 @@ export default function Home() {
             </h1>
           </div>
 
-          <div className="flex min-h-9 items-center font-mono text-lg text-zinc-200 sm:text-2xl">
+          <div className="flex min-h-9 w-full items-center justify-center lg:justify-start font-mono text-lg text-zinc-200 sm:text-2xl">
             <span className="mr-3 text-emerald-300">&gt;</span>
             <RotatingTypewriter
               words={PERSONAL_DATA.typewriter}
@@ -148,12 +153,12 @@ export default function Home() {
             />
           </div>
 
-          <p className="max-w-xl border-l-2 border-cyan-300/40 pl-5 text-base leading-8 text-zinc-300">
+          <p className="max-w-xl border-l-0 lg:border-l-2 w-full border-cyan-300/40 pl-0 lg:pl-5 text-base leading-8 text-zinc-300 mx-auto lg:mx-0">
             {PERSONAL_DATA.bio}
             {HOMEPAGE_DATA.bioSuffix}
           </p>
 
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap justify-center lg:justify-start gap-3">
             {heroStats.map((stat) => (
               <div
                 key={stat.label}
@@ -178,7 +183,7 @@ export default function Home() {
 
           <HeroTechPills tags={HOMEPAGE_DATA.heroPills} />
 
-          <div className="flex flex-col gap-3 pt-1 sm:flex-row sm:flex-wrap sm:items-center">
+          <div className="flex flex-col gap-3 pt-1 items-center justify-center sm:flex-row sm:flex-wrap lg:justify-start w-full">
             <MagneticElement strength={14} className="w-full sm:w-auto">
               <Link
                 href="/projects"
@@ -212,10 +217,10 @@ export default function Home() {
         {/* Open, floating stack orbit */}
         <motion.div
           variants={itemVariants}
-          className="relative flex min-h-105 w-full items-center justify-center sm:min-h-125"
+          className="relative flex min-h-105 w-full items-center justify-center sm:min-h-125 overflow-hidden max-w-full"
         >
-          <div className="absolute inset-0 rounded-full bg-linear-to-r from-cyan-400/10 via-fuchsia-400/10 to-emerald-400/10 blur-3xl" />
-          <div className="scale-125 md:scale-[1.55]">
+          <div className="absolute w-50 h-50 rounded-full bg-linear-to-r from-cyan-400/10 via-fuchsia-400/10 to-emerald-400/10 blur-[100px]" />
+          <div className="scale-150 md:scale-[1.25] lg:scale-[1.55] transition-transform duration-300">
             <IconCloud images={HOMEPAGE_DATA.heroStackIcons} />
           </div>
         </motion.div>

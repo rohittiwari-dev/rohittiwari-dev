@@ -197,8 +197,12 @@ export default function ProjectDetailView({ project }: { project: Project }) {
               <Briefcase size={16} />
             </div>
             <div className="flex flex-col">
-              <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">Role</span>
-              <span className="text-sm font-semibold text-zinc-200">{typedProject.role ?? "Engineer"}</span>
+              <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">
+                Role
+              </span>
+              <span className="text-sm font-semibold text-zinc-200">
+                {typedProject.role ?? "Engineer"}
+              </span>
             </div>
           </div>
           <div className="flex items-start gap-3 border border-white/10 bg-white/[0.03] p-4 transition hover:border-white/20 hover:bg-white/[0.05]">
@@ -206,8 +210,12 @@ export default function ProjectDetailView({ project }: { project: Project }) {
               <Calendar size={16} />
             </div>
             <div className="flex flex-col">
-              <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">Duration</span>
-              <span className="text-sm font-semibold text-zinc-200">{typedProject.duration ?? "N/A"}</span>
+              <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">
+                Duration
+              </span>
+              <span className="text-sm font-semibold text-zinc-200">
+                {typedProject.duration ?? "N/A"}
+              </span>
             </div>
           </div>
           <div className="flex items-start gap-3 border border-white/10 bg-white/[0.03] p-4 transition hover:border-white/20 hover:bg-white/[0.05]">
@@ -215,18 +223,29 @@ export default function ProjectDetailView({ project }: { project: Project }) {
               <ShieldCheck size={16} />
             </div>
             <div className="flex flex-col">
-              <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">Status</span>
-              <span className="text-sm font-semibold text-zinc-200">{typedProject.status ?? "Completed"}</span>
+              <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">
+                Status
+              </span>
+              <span className="text-sm font-semibold text-zinc-200">
+                {typedProject.status ?? "Completed"}
+              </span>
             </div>
           </div>
           {typedProject.metrics?.slice(0, 1).map((m) => (
-            <div key={m.label} className="flex items-start gap-3 border border-white/10 bg-white/[0.03] p-4 transition hover:border-white/20 hover:bg-white/[0.05]">
+            <div
+              key={m.label}
+              className="flex items-start gap-3 border border-white/10 bg-white/[0.03] p-4 transition hover:border-white/20 hover:bg-white/[0.05]"
+            >
               <div className="grid size-9 shrink-0 place-items-center border border-white/10 bg-black/40 text-amber-300">
                 <Zap size={16} />
               </div>
               <div className="flex flex-col">
-                <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">{m.label}</span>
-                <span className="text-sm font-semibold text-zinc-200">{m.value}</span>
+                <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">
+                  {m.label}
+                </span>
+                <span className="text-sm font-semibold text-zinc-200">
+                  {m.value}
+                </span>
               </div>
             </div>
           ))}
@@ -236,8 +255,12 @@ export default function ProjectDetailView({ project }: { project: Project }) {
                 <Zap size={16} />
               </div>
               <div className="flex flex-col">
-                <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">Telemetry</span>
-                <span className="text-sm font-semibold text-zinc-200">Active</span>
+                <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">
+                  Telemetry
+                </span>
+                <span className="text-sm font-semibold text-zinc-200">
+                  Active
+                </span>
               </div>
             </div>
           )}
@@ -247,13 +270,20 @@ export default function ProjectDetailView({ project }: { project: Project }) {
         {typedProject.metrics && typedProject.metrics.length > 1 && (
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {typedProject.metrics.slice(1).map((m) => (
-              <div key={m.label} className="flex items-start gap-3 border border-white/10 bg-white/[0.03] p-4 transition hover:border-white/20 hover:bg-white/[0.05]">
+              <div
+                key={m.label}
+                className="flex items-start gap-3 border border-white/10 bg-white/[0.03] p-4 transition hover:border-white/20 hover:bg-white/[0.05]"
+              >
                 <div className="grid size-9 shrink-0 place-items-center border border-white/10 bg-black/40 text-amber-300">
                   <Zap size={16} />
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">{m.label}</span>
-                  <span className="text-sm font-semibold text-zinc-200">{m.value}</span>
+                  <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">
+                    {m.label}
+                  </span>
+                  <span className="text-sm font-semibold text-zinc-200">
+                    {m.value}
+                  </span>
                 </div>
               </div>
             ))}
@@ -402,7 +432,10 @@ export default function ProjectDetailView({ project }: { project: Project }) {
                 key={layer.title}
                 className="border border-white/10 bg-black/40 p-6 backdrop-blur-xl transition hover:border-white/20"
               >
-                <span className="font-mono text-xs text-cyan-300">{"// "}{layer.title}</span>
+                <span className="font-mono text-xs text-cyan-300">
+                  {"// "}
+                  {layer.title}
+                </span>
                 <p className="mt-3 text-sm leading-7 text-zinc-400">
                   {layer.body}
                 </p>

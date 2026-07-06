@@ -8,7 +8,10 @@ interface AnimatedNumberProps {
   className?: string;
 }
 
-export default function AnimatedNumber({ value, className = "" }: AnimatedNumberProps) {
+export default function AnimatedNumber({
+  value,
+  className = "",
+}: AnimatedNumberProps) {
   const [isInView, setIsInView] = useState(false);
 
   // We start at 0
@@ -35,7 +38,7 @@ export default function AnimatedNumber({ value, className = "" }: AnimatedNumber
 
   // Transform the spring float value into an integer string
   const displayValue = useTransform(springValue, (current) =>
-    Math.floor(current).toString()
+    Math.floor(current).toString(),
   );
 
   return <motion.span className={className}>{displayValue}</motion.span>;

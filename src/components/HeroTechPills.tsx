@@ -8,7 +8,7 @@ interface HeroTechPillsProps {
 
 export default function HeroTechPills({ tags }: HeroTechPillsProps) {
   return (
-    <div className="flex flex-wrap gap-2">
+    <div className="flex flex-wrap justify-center lg:justify-start gap-2">
       {tags.map((tag, idx) => (
         <motion.span
           key={idx}

@@ -4,12 +4,12 @@ import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 
-export default function RotatingTypewriter({ 
-  words, 
-  className 
-}: { 
-  words: string[], 
-  className?: string 
+export default function RotatingTypewriter({
+  words,
+  className,
+}: {
+  words: string[];
+  className?: string;
 }) {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [currentText, setCurrentText] = useState("");
@@ -17,7 +17,7 @@ export default function RotatingTypewriter({
 
   useEffect(() => {
     if (!words || words.length === 0) return;
-    
+
     let timer: NodeJS.Timeout;
     const currentWord = words[currentWordIndex];
 

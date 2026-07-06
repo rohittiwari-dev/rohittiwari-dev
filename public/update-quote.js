@@ -1,8 +1,8 @@
-const fs = require('fs');
+const fs = require("fs");
 
 async function updateQuote() {
   try {
-    const quotes = require('./quotes.json');
+    const quotes = require("./quotes.json");
     const randomIndex = Math.floor(Math.random() * quotes.length);
     const { quote, author } = quotes[randomIndex];
 
@@ -14,17 +14,17 @@ async function updateQuote() {
 <!--ENDS_HERE_QUOTE_CARD-->
 `;
 
-    const readmePath = './README.md';
-    let readmeContent = fs.readFileSync(readmePath, 'utf-8');
+    const readmePath = "./README.md";
+    let readmeContent = fs.readFileSync(readmePath, "utf-8");
 
     readmeContent = readmeContent.replace(
       /<!--STARTS_HERE_QUOTE_CARD-->(.|\n)*<!--ENDS_HERE_QUOTE_CARD-->/,
-      cardDesign
+      cardDesign,
     );
 
     fs.writeFileSync(readmePath, readmeContent);
   } catch (error) {
-    console.error('Error updating quote:', error);
+    console.error("Error updating quote:", error);
   }
 }
 

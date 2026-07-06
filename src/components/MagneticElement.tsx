@@ -27,7 +27,7 @@ export default function MagneticElement({
     if (!ref.current) return;
     const { clientX, clientY } = e;
     const { left, top, width, height } = ref.current.getBoundingClientRect();
-    
+
     const centerX = left + width / 2;
     const centerY = top + height / 2;
 

@@ -210,9 +210,7 @@ export function ProjectCard({
         </div>
 
         <div className="mt-auto pt-6">
-          <div
-            className="inline-flex w-full items-center justify-between border-t border-white/10 pt-4 font-mono text-xs uppercase tracking-wider text-zinc-400 transition-colors group-hover:text-white"
-          >
+          <div className="inline-flex w-full items-center justify-between border-t border-white/10 pt-4 font-mono text-xs uppercase tracking-wider text-zinc-400 transition-colors group-hover:text-white">
             <span>Inspect project</span>
             <span className="flex size-8 items-center justify-center border border-white/10 transition-all duration-300 group-hover:border-white/30 group-hover:bg-white/10">
               <ArrowUpRight
